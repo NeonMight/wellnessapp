@@ -1,27 +1,25 @@
 <head>
-<title>Log in</title>
+<title>Activity Enrollment</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href='/client/site.css'>
+<link rel="stylesheet" href="/client/site.css">
 </head>
-<body>
-<div class='container'>
-<div class="col-xs-4">
-</div>
-<div class='col-xs-4'>
-<h2>Please Log in</h2>
-<form method='post' action='/login/'>
-<div class="form-group">
-<input class='form-control' name='username' type='text' placeholder="Username"/>
-<input class='form-control' name='password' type='password' placeholder="Password"/>
-<br>
-<button class='btn btn-default'>Log in</button>
-</div>
+<body ng-app='enrollment'>
+<div ng-controller='enrollmentController'>
+<form>
+<table class='table'>
+<thead>
+<th>Activity Name</th><th>Percentage</th>
+</thead>
+<tr ng-repeat='activity in activitylist'>
+<td>{{ activity.name }}</td><td>{{ activity.percent }}</td><td><input type='checkbox'></td>
+</tr>
+</table>
 </form>
-</div>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
+<script src='/client/enrollmentcontroller.js'></script>
