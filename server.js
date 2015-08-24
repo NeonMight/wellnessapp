@@ -28,7 +28,7 @@ app.get('/', function(req, res){  //check if user has logged in with function
 });
 
 app.post('/login/', function(req, res){
-  var querystring = 'select * from User where username="'+req.body.username+'" and password="'+sha1(req.body.password)+'";';
+  var querystring = 'select * from User where username="'+req.body.username+'" and password="'+sha1(req.body.password)+'" limit 1;';
   //req.session.user = 'pizza';
   //console.log('Bottom layer: '+req.session.user);
   pool.getConnection(function(err,connection)
@@ -40,7 +40,7 @@ app.post('/login/', function(req, res){
       if (!err)
       {
         console.log('Result set: '+rows);
-        if (rows != [] && rows != '' && rows != null) req.session.user = 'ok';
+        if (rows != [] && rows != '' && rows != null) req.session.user = rows[0].username; //set to the user's username
         res.redirect('/'); //must wait for query results before redirecting
       }
     });
@@ -54,7 +54,7 @@ app.get('/logout/', function(req, res){
   res.redirect('/');
 });
 
-// ENROLL, WAIVER & PROFILE
+// ENROLL, WAIVER & PROFILE (These just send the file)
 
 app.get('/enroll/', function(req, res){
   if (!req.session.user) res.redirect('/');
@@ -72,7 +72,19 @@ app.get('/profile/', function(req,res){
   res.sendFile(__dirname+'/client/views/profile.html');
 });
 
-// EXTRA
+// RESOURCE REQUESTS
+
+app.get('/getUserProfile', function(req,res){
+  var querystring = 'select * from User where username="'+req.session.user+'" limit 1;';
+  console.log('Query: '+ querystring);
+  pool.getConnection(function(err,connection){
+    connection.query(querystring, function(err, rows){
+      // return the profile
+      console.log('Rows: '+JSON.stringify(rows)); //echo profile in json format to check if object or array
+      res.json(rows[0]); //respond with just 1st object in array
+    })
+  });
+});
 
 
 // SET UP LISTENER
