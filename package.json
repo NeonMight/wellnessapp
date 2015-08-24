@@ -1,0 +1,22 @@
+{
+  "name": "wellness",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.10.6",
+    "express-session": "^1.11.3",
+    "mysql": "^2.5.4",
+    "sha1": "^1.1.1"
+  },
+  "description": "MySQL-EAN stack application used to keep track of employee wellness program participation.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "Wellness"
+  ],
+  "author": "Stephen Hoffman",
+  "license": "ISC"
+}
