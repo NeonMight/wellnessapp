@@ -6,9 +6,22 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
 <body ng-app='profile'>
-<div ng-controller='profileController'>
-<h2>Your Profile</h2>
-<p ng-model='userProfile'>{{ userProfile.username }}</p>
+<div id='navbar'>
+</div>
+<div ng-controller='profileController' class="container">
+<div class='panel panel-default'>
+<div class="panel-heading">
+  <h3 class="panel-title" ng-model='userProfile'>{{userProfile.username}}</h3>
+</div>
+<div class="panel-body">
+<label>First Name</label><input class='form-control' ng-model='userProfile.firstname' placeholder="First Name"/>
+<label>Last Name</label><input class='form-control' ng-model='userProfile.lastname' placeholder="Last Name"/>
+<label>Email</label><input class='form-control' ng-model='userProfile.email' placeholder="Email"/>
+<label>Department</label><input class='form-control' ng-model='userProfile.department' placeholder="Department"/>
+<br>
+<button class="btn btn-default" ng-click='updateInfo()'>Update</button>
+</div>
+</div>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>

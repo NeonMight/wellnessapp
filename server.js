@@ -1,4 +1,5 @@
-// sessions  will be juggled in here with request, not the angular scope
+////////////////////////////// INITIAL CONFIG //////////////////////////////
+
 var express = require('express'),
     app = express(),
     bodyparser = require('body-parser'),
@@ -21,7 +22,8 @@ app.use(session({secret : "donttell"}));
 
 app.use('/client', express.static(__dirname+'/client'));
 
-// AUTHENTICATION & INDEX
+////////////////////////////// AUTHENTICATION & INDEX //////////////////////////////
+
 app.get('/', function(req, res){  //check if user has logged in with function
   if (req.session.user) res.sendFile(__dirname+'/client/views/main.html');
   else res.sendFile(__dirname+'/client/views/portal.html');
@@ -54,7 +56,14 @@ app.get('/logout/', function(req, res){
   res.redirect('/');
 });
 
-// ENROLL, WAIVER & PROFILE (These just send the file)
+/////////////////////////////// PARTIAL TEMPLATES //////////////////////////////
+
+app.get('/navbar/', function(req, res){
+  res.sendFile(__dirname+'/client/views/navbar.html');
+});
+
+
+////////////////////////////// MAIN TEMPLATES //////////////////////////////
 
 app.get('/enroll/', function(req, res){
   if (!req.session.user) res.redirect('/');
@@ -72,7 +81,7 @@ app.get('/profile/', function(req,res){
   res.sendFile(__dirname+'/client/views/profile.html');
 });
 
-// RESOURCE REQUESTS
+////////////////////////////// RESOURCE REQUESTS //////////////////////////////
 
 app.get('/getUserProfile', function(req,res){
   var querystring = 'select * from User where username="'+req.session.user+'" limit 1;';
@@ -80,15 +89,29 @@ app.get('/getUserProfile', function(req,res){
   pool.getConnection(function(err,connection){
     connection.query(querystring, function(err, rows){
       // return the profile
-      console.log('Rows: '+JSON.stringify(rows)); //echo profile in json format to check if object or array
+      //console.log('Rows: '+JSON.stringify(rows)); //echo profile in json format to check if object or array
       res.json(rows[0]); //respond with just 1st object in array
-    })
+    });
+  });
+});
+
+////////////////////////////// PUT REQUESTS //////////////////////////////
+
+app.put('/updateProfile/', function(req,res){
+  //firstname, lastname, email and department
+  var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.session.user+'";';
+  //console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      // return something
+      res.send('ok!');
+    });
   });
 });
 
 
-// SET UP LISTENER
+////////////////////////////// SET UP LISTENER //////////////////////////////
 var globalPort = 3000;
 app.listen(globalPort, function(){
-  console.log('Server listening on port '+globalPort)
+  console.log('Server listening on port '+globalPort);
 });

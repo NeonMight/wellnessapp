@@ -8,6 +8,12 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
 
   $scope.userProfile = '';
 
+  var loadNav = function() {
+    $http.get('/navbar/').success(function(response){
+      document.getElementById('navbar').innerHTML = response;
+    });
+  };
+
   var refresh = function()
   {
     $http.get('/getUserProfile/').success(function(response)
@@ -17,5 +23,16 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
   };
 
   refresh();
+  loadNav();
+
+  $scope.updateInfo = function()
+  {
+    $http.put('/updateProfile/',$scope.userProfile).success(function(response)
+    {
+      //do something
+      refresh();
+      alert('Your account has been updated successfully');
+    });
+  }
 
 }]);
