@@ -41,7 +41,7 @@ app.post('/login/', function(req, res){
       //console.log('2nd layer: '+req.session.user);
       if (!err)
       {
-        console.log('Result set: '+rows);
+        //console.log('Result set: '+rows);
         if (rows != [] && rows != '' && rows != null) req.session.user = rows[0].username; //set to the user's username
         res.redirect('/'); //must wait for query results before redirecting
       }
@@ -71,7 +71,7 @@ app.get('/enroll/', function(req, res){
   res.sendFile(__dirname+'/client/views/enroll.html');
 });
 
-app.get('/waiver/', function(req, res){
+app.get('/decline/', function(req, res){
   if (!req.session.user) res.redirect('/');
   res.sendFile(__dirname+'/client/views/waiver.html');
 });
@@ -83,14 +83,26 @@ app.get('/profile/', function(req,res){
 
 ////////////////////////////// RESOURCE REQUESTS //////////////////////////////
 
-app.get('/getUserProfile', function(req,res){
+app.get('/getUserProfile/', function(req,res){
   var querystring = 'select * from User where username="'+req.session.user+'" limit 1;';
-  console.log('Query: '+ querystring);
+  //console.log('Query: '+ querystring);
   pool.getConnection(function(err,connection){
     connection.query(querystring, function(err, rows){
       // return the profile
       //console.log('Rows: '+JSON.stringify(rows)); //echo profile in json format to check if object or array
       res.json(rows[0]); //respond with just 1st object in array
+    });
+  });
+});
+
+
+app.get('/getActivityList/', function(req, res){
+  var querystring = 'select * from Activity order by percent;';
+  console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      // return all objects as an array
+      console.log(rows);
     });
   });
 });
