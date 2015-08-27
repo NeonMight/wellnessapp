@@ -4,7 +4,9 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
 {
   //console.log('Controller is active');
 
-  $scope.activityList = '';
+  $scope.activityList = [];
+
+  $scope.enrollmentList = [];
 
   var loadNav = function() {
     $http.get('/navbar/').success(function(response){
@@ -14,12 +16,23 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
 
   var refresh = function() {
     $http.get('/getActivityList/').success(function(response){
-      // do something
-      console.log("Object 1: "+JSON.stringify(response[0]));
+      /*
+      for (var i = 0; i < response.length; i++)
+      {
+        console.log("Item "+i+" pushed.");
+        $scope.activityList.push(response[i]); //convert each object in array to JSON and put into scope
+      }
+      */
       $scope.activityList = response;
     });
-  }
+  };
+
+  $scope.enrollMe = function(id) {
+    console.log('Activity '+id+' status altered');
+    //reconstruct the enrollmentList
+  };
 
   loadNav();
   refresh();
+
 }]);

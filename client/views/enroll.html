@@ -17,8 +17,8 @@
 <thead>
 <th>Activity Name</th><th>Percentage</th><th>Description</th><th>&#10003;</th>
 </thead>
-<tr ng-repeat='activity in activitylist'>
-  <td>{{ activity.name }}</td><td>{{ activity.percent }}</td><td>{{ activity.description }}</td><td><input type='checkbox'></td>
+<tr ng-repeat='activity in activityList'>
+  <td>{{ activity.name }}</td><td>{{ activity.percent }}</td><td>{{ activity.description }}</td><td><input type='checkbox' ng-change=''></td>
 </tr>
 </table>
 </form>
