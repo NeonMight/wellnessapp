@@ -15,10 +15,10 @@
 <form>
 <table class='table'>
 <thead>
-<th>Activity Name</th><th>Percentage</th>
+<th>Activity Name</th><th>Percentage</th><th>Description</th><th>&#10003;</th>
 </thead>
 <tr ng-repeat='activity in activitylist'>
-<td>{{ activity.name }}</td><td>{{ activity.percent }}</td><td><input type='checkbox'></td>
+  <td>{{ activity.name }}</td><td>{{ activity.percent }}</td><td>{{ activity.description }}</td><td><input type='checkbox'></td>
 </tr>
 </table>
 </form>

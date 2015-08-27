@@ -36,3 +36,17 @@ primary key(eventname),
 foreign key(activityname) references Activity(name)
 );
 -- one to many relation between activity and event; activity has 0 or more events. Event must be matched with an activity
+
+create table Enrollment(
+user varchar(100) not null,
+activityname varchar(100) not null,
+enrollmentdate date not null,
+primary key(user, activityname),
+foreign key(user) references User(username),
+foreign key(activityname) references Activity(name)
+);
+
+-- TEST DATA
+
+insert into Activity(description, documentation, enrollmentyear, eventsrequired, isarchived, maxselection, name, percent)
+values('A year long zumba party!', 'none', 2015, 365, 0, 365, 'ZumbaMania', 10);

@@ -98,11 +98,12 @@ app.get('/getUserProfile/', function(req,res){
 
 app.get('/getActivityList/', function(req, res){
   var querystring = 'select * from Activity order by percent;';
-  console.log(querystring);
+  //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
-      // return all objects as an array
-      console.log(rows);
+      // return all objects as an array (foreach over array to convert objects to json then respond?)
+      //console.log(JSON.stringify(rows[0]));
+      res.json(rows); //try the whole array first
     });
   });
 });

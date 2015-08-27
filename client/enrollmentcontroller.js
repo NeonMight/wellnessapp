@@ -15,9 +15,11 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
   var refresh = function() {
     $http.get('/getActivityList/').success(function(response){
       // do something
+      console.log("Object 1: "+JSON.stringify(response[0]));
       $scope.activityList = response;
     });
   }
 
   loadNav();
+  refresh();
 }]);
