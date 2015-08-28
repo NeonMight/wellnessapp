@@ -24,12 +24,26 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
       }
       */
       $scope.activityList = response;
+      for (var i = 0; i < $scope.activityList.length; i++)
+      {
+        $scope.enrollmentList.push(false); // all turned off initially
+      }
     });
   };
 
-  $scope.enrollMe = function(id) {
+  $scope.alterMe = function(id) {
     console.log('Activity '+id+' status altered');
-    //reconstruct the enrollmentList
+    //$scope.enrollmentList[id] = !$scope.enrollmentList[id]; // negate the current state (ng-model takes care of this)
+    console.log('Activity status: '+$scope.enrollmentList);
+  };
+
+  $scope.enroll = function(){
+    //collect all true elements in the enrollment list, use the indexes to reference the activity list, and submit to server
+    //console.log($scope.activityList.length == $scope.enrollmentList.length) //check if lengths are the same first
+    for (var i = 0; i < $scope.activityList.length; i++)
+    {
+      if ($scope.enrollmentList[i] == true) console.log("You are to be enrolled in: "+$scope.activityList[i].name)
+    };
   };
 
   loadNav();

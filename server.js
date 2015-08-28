@@ -104,11 +104,21 @@ app.get('/getActivityList/', function(req, res){
     connection.query(querystring, function(err, rows){
       // return all objects as an array (foreach over array to convert objects to json then respond?)
       //console.log(JSON.stringify(rows[0]));
-      console.log(rows);
+      //console.log(rows);
       res.send(rows); //try the whole array first
     });
   });
 });
+
+//////////////////////////////POST REQUESTS//////////////////////////////
+
+app.post('/enrollUser/', function(req, res){
+  timestamp = new Date(dateString);
+  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", "'+req.body.id+'", '+timestamp+')';
+  console.log(querystring);
+});
+
+
 
 ////////////////////////////// PUT REQUESTS //////////////////////////////
 
@@ -123,7 +133,6 @@ app.put('/updateProfile/', function(req,res){
     });
   });
 });
-
 
 ////////////////////////////// SET UP LISTENER //////////////////////////////
 var globalPort = 3000;
