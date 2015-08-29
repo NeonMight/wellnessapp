@@ -54,3 +54,7 @@ values('IT','pritchard@jamz.net',1,'Alberto','Balsalm','a94a8fe5ccb19ba61c4c0873
 
 insert into Activity(description, documentation, enrollmentyear, eventsrequired, isarchived, maxselection, name, percent)
 values('A year long zumba party!', 'none', 2015, 365, 0, 365, 'ZumbaMania', 10);
+insert into Activity(description, documentation, enrollmentyear, eventsrequired, isarchived, maxselection, name, percent)
+values('Competetive CoEd softball tournament (no noobs allowed)', 'none', 2015, 26, 0, 30, 'Srs Bizness Softball', 10);
+insert into Activity(description, documentation, enrollmentyear, eventsrequired, isarchived, maxselection, name, percent)
+values('Crossfit meetup for people to talk about crossfit', 'none', 2015, 7, 0, 12, 'CROSSFIT', 10);

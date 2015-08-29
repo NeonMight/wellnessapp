@@ -81,6 +81,11 @@ app.get('/profile/', function(req,res){
   res.sendFile(__dirname+'/client/views/profile.html');
 });
 
+app.get('/form/', function(req,res){
+  if (!req.session.user) res.redirect('/');
+  res.sendFile(__dirname+'/client/views/form.html');
+});
+
 ////////////////////////////// RESOURCE REQUESTS //////////////////////////////
 
 app.get('/getUserProfile/', function(req,res){
@@ -98,7 +103,7 @@ app.get('/getUserProfile/', function(req,res){
 
 app.get('/getActivityList/', function(req, res){
   currentDate = new Date(); //only get relevant form data for current year
-  var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' order by percent;';
+  var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' order by percent;'; // for future, only get ones not enrolled in
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
@@ -110,12 +115,22 @@ app.get('/getActivityList/', function(req, res){
   });
 });
 
+app.get('/getEnrolledActivities/', function(req,res){
+  var querystring = 'select * from Enrollment where user="'+req.session.user+'";';
+  console.log(querystring);
+});
+
 //////////////////////////////POST REQUESTS//////////////////////////////
 
 app.post('/enrollUser/', function(req, res){
-  timestamp = new Date(dateString);
-  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", "'+req.body.id+'", '+timestamp+')';
+  //timestamp = new Date(dateString);
+  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", '+req.body.id+', CURDATE())';
   console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send("ok!");
+    });
+  });
 });
 
 

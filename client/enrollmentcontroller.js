@@ -42,7 +42,13 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
     //console.log($scope.activityList.length == $scope.enrollmentList.length) //check if lengths are the same first
     for (var i = 0; i < $scope.activityList.length; i++)
     {
-      if ($scope.enrollmentList[i] == true) console.log("You are to be enrolled in: "+$scope.activityList[i].name)
+      if ($scope.enrollmentList[i] == true) {
+        console.log("You are to be enrolled in: "+$scope.activityList[i].name)
+        $http.post('/enrollUser/', $scope.activityList[i]).success(function(response){
+          console.log("Enrolled successfully");
+        });
+      // redirect to form.html
+      }
     };
   };
 
