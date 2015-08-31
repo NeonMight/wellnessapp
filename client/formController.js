@@ -21,4 +21,5 @@ ngapp.controller('userFormController', ['$scope', '$http', function($scope, $htt
     });
   };
 
-}
+  refresh();
+}]);

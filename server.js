@@ -116,8 +116,14 @@ app.get('/getActivityList/', function(req, res){
 });
 
 app.get('/getEnrolledActivities/', function(req,res){
-  var querystring = 'select * from Enrollment where user="'+req.session.user+'";';
-  console.log(querystring);
+  var querystring = 'select * from Activity inner join Enrollment where Activity.id=Enrollment.activityid and user="'+req.session.user+'";';
+  //console.log(querystring);
+  pool.getConnection(function(err,connection){
+    connection.query(querystring, function(err, rows){
+      //console.log("Your enrolled activities are: "+JSON.stringify(rows[0]));
+      res.send(rows);
+    });
+  });
 });
 
 //////////////////////////////POST REQUESTS//////////////////////////////

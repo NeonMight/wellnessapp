@@ -9,15 +9,15 @@
 <script src="/client/extra.js"></script>
 </head>
 <body ng-app='userForm'>
-<h2>My Enrolled Activities</h2>
 <div id="navbar"></div>
 <div class='container' ng-controller='userFormController'>
+<h2>My Enrolled Activities</h2>
 <table class='table'>
 <thead>
-  <th>Activity Name</th><th></th><th></th><th></th>
+  <th>Activity Name</th><th>Description</th><th>Date Enrolled</th><th>Percentage</th>
 </thead>
-<tr ng-repeat=''>
-  <td></td>
+<tr ng-repeat='activity in enrolledActivities'>
+  <td>{{ activity.name }}</td><td>{{ activity.description }}</td><td>{{ activity.enrollmentdate }}</td><td>{{ activity.percent }}</td>
 </tr>
 </table>
 </div>
