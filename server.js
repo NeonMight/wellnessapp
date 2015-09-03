@@ -42,7 +42,11 @@ app.post('/login/', function(req, res){
       if (!err)
       {
         //console.log('Result set: '+rows);
-        if (rows != [] && rows != '' && rows != null) req.session.user = rows[0].username; //set to the user's username
+        if (rows != [] && rows != '' && rows != null)
+        {
+          req.session.user = rows[0].username; //set to the user's username
+          req.session.admin = rows[0].isadmin; //check if user is an admin or not
+        }
         res.redirect('/'); //must wait for query results before redirecting
       }
     });
@@ -86,7 +90,21 @@ app.get('/form/', function(req,res){
   res.sendFile(__dirname+'/client/views/form.html');
 });
 
+app.get('/admin/', function(req,res){
+  if (!req.session.user) res.redirect('/');
+  res.sendFile(__dirname+'/client/views/admin.html');
+});
+
+app.get('/stats/', function(req,res){
+  if (!req.session.user) res.redirect('/');
+  res.sendFile(__dirname+'/client/views/stats.html');
+});
+
 ////////////////////////////// RESOURCE REQUESTS //////////////////////////////
+app.get('/getUserSession/', function(req, res){
+  //console.log('User session requested');
+  res.send(req.session);
+});
 
 app.get('/getUserProfile/', function(req,res){
   var querystring = 'select * from User where username="'+req.session.user+'" limit 1;';

@@ -4,13 +4,19 @@ ngapp.controller('userFormController', ['$scope', '$http', function($scope, $htt
 {
   //console.log('Controller is active');
 
-  var loadNav = function() {
-    $http.get('/navbar/').success(function(response){
-      document.getElementById('navbar').innerHTML = response;
+  $scope.session = '';
+
+  var getSession = function(){
+    // request get user session
+    $http.get('/getUserSession/').success(function(response){
+      // insert extra links if admin and add name to greeting on navbar
+      console.log('Got the session');
+      $scope.session = response;
     });
   };
 
-  loadNav();
+  //loadNav();
+  getSession();
 
   $scope.enrolledActivities = [];
 

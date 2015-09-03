@@ -4,15 +4,24 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
 {
   console.log('Controller is active');
 
+  $scope.session = '';
+
+  var getSession = function(){
+    // request get user session
+    $http.get('/getUserSession/').success(function(response){
+      // insert extra links if admin and add name to greeting on navbar
+      console.log('Got the session');
+      $scope.session = response;
+    });
+  };
+
+
+  //loadNav();
+  getSession();
+
   // Now make a request for the resources with http get (refresh function for now to request resources)
 
   $scope.userProfile = '';
-
-  var loadNav = function() {
-    $http.get('/navbar/').success(function(response){
-      document.getElementById('navbar').innerHTML = response;
-    });
-  };
 
   var refresh = function()
   {
@@ -23,7 +32,6 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
   };
 
   refresh();
-  loadNav();
 
   $scope.updateInfo = function()
   {

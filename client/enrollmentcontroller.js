@@ -8,11 +8,20 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
 
   $scope.enrollmentList = [];
 
-  var loadNav = function() {
-    $http.get('/navbar/').success(function(response){
-      document.getElementById('navbar').innerHTML = response;
+  $scope.session = '';
+
+  var getSession = function(){
+    // request get user session
+    $http.get('/getUserSession/').success(function(response){
+      // insert extra links if admin and add name to greeting on navbar
+      console.log('Got the session');
+      $scope.session = response;
     });
   };
+
+
+  //loadNav();
+  getSession();
 
   var refresh = function() {
     $http.get('/getActivityList/').success(function(response){
@@ -51,8 +60,6 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
       }
     };
   };
-
-  loadNav();
   refresh();
 
 }]);

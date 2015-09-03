@@ -10,6 +10,7 @@ password varchar(100) not null,
 email varchar(100) not null,
 department varchar(100),
 enabled boolean not null,
+isadmin boolean not null,
 primary key(username)
 );
 
