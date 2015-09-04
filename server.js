@@ -121,7 +121,7 @@ app.get('/getUserProfile/', function(req,res){
 
 app.get('/getActivityList/', function(req, res){
   currentDate = new Date(); //only get relevant form data for current year
-  var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' order by percent;'; // for future, only get ones not enrolled in
+  var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' and id not in (select activityid from Enrollment where user="'+req.session.user+'") order by percent;'; // for future, only get ones not enrolled in
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
