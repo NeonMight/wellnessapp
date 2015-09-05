@@ -25,7 +25,8 @@ app.use('/client', express.static(__dirname+'/client'));
 ////////////////////////////// AUTHENTICATION & INDEX //////////////////////////////
 
 app.get('/', function(req, res){  //check if user has logged in with function
-  if (req.session.user) res.sendFile(__dirname+'/client/views/main.html');
+  if (req.session.admin == 1) res.sendFile(__dirname+'/client/views/admin.html');
+  else if (req.session.user) res.sendFile(__dirname+'/client/views/main.html');
   else res.sendFile(__dirname+'/client/views/portal.html');
 });
 
@@ -90,13 +91,13 @@ app.get('/form/', function(req,res){
   res.sendFile(__dirname+'/client/views/form.html');
 });
 
-app.get('/admin/', function(req,res){
-  if (!req.session.user) res.redirect('/');
-  res.sendFile(__dirname+'/client/views/admin.html');
+app.get('/manage/', function(req,res){
+  if (!req.session.user || req.session.admin == 0) res.redirect('/');
+  res.sendFile(__dirname+'/client/views/manage.html');
 });
 
 app.get('/stats/', function(req,res){
-  if (!req.session.user) res.redirect('/');
+  if (!req.session.user || req.session.admin == 0) res.redirect('/');
   res.sendFile(__dirname+'/client/views/stats.html');
 });
 

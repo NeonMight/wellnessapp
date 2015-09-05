@@ -1,0 +1,73 @@
+<head>
+<title>Main Page</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href='/client/site.css'>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/client/extra.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
+</head>
+<body ng-app='main' class='ng-cloak'>
+
+<div class='container' ng-controller='mainController'>
+<nav class='navbar navbar-default'>
+<div class="container-fluid">
+<div class="navbar-header">
+<a class="navbar-brand">Wellness Enrollment</a>
+</div>
+<div class="collapse navbar-collapse">
+<ul class="nav navbar-nav">
+  <li><a href="/">Home</a></li>
+  <li><a href='/enroll/'>Enroll</a></li>
+  <li><a href="/profile/">My Profile</a></li>
+  <li><a href="/form/">My Forms</a></li>
+  <li><a href="/logout/">Logout</a></li>
+  <li><a></a></li>
+  <li><a></a></li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+  <li id='greeting'><a class='navbar-brand' ng-model='session'>Welcome {{session.user}}</a></li>
+</ul>
+
+</div>
+</div>
+</nav>
+<h1>Wellness Enrollment Nexus</h1>
+
+<div class="col-sm-4">
+    <a href="/enroll/" class="tile purple" role="button" style='text-decoration: none;'>
+        <h3 class="title">Enroll</h3>
+        <p>Sign up for the Wellness Program! </p><br />
+    </a>
+
+    <a href="/manage/" class="tile blue" role="button" style="text-decoration: none;">
+      <h3 class="title">Manage</h3>
+      <p>Edit user accounts and enrollment.</p><br>
+    </a>
+</div>
+
+<div class="col-sm-4">
+    <a href="/decline/" class="tile red" role="button" style='text-decoration: none;'>
+        <h3 class="title">Decline</h3>
+        <p>Go here to waive your enrollment into the progam.  We hope you reconsider!</p>
+    </a>
+
+    <a href="/stats/" class="tile green" role="button" style="text-decoration: none;">
+      <h3 class="title">Stats</h3>
+      <p>View enrollment dashboard.</p><br>
+    </a>
+</div>
+
+<div class="col-sm-4">
+    <a href="/profile/" class="tile orange" role="button" style='text-decoration: none;'>
+        <h3 class="title">My Profile</h3>
+        <p>View your profile and progress report.</p><br />
+    </a>
+</div>
+
+</div>
+</body>
+<script src='/client/mainController.js'></script>
