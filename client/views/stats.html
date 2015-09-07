@@ -1,21 +1,24 @@
 <head>
-<title></title>
+<title>Stats Dashboard</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/client/site.css">
+<link rel="stylesheet" href="/client/css/site.css">
+<link rel="stylesheet" href="/client/css/sb-admin-rtl.css">
+<link rel="stylesheet" href="/client/css/plugins/morris.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/client/extra.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
+<script src='/client/js/plugins/morris/raphael.min.js'></script>
+<script src='/client/js/plugins/morris/morris.min.js'></script>
 </head>
-<body class="ng-cloak">
-
-<nav class='navbar navbar-default'>
+<body class="ng-cloak" ng-app='stats'>
+<div ng-controller='statsController'>
+<nav class='navbar navbar-inverse navbar-fixed-top'>
 <div class="container-fluid">
 <div class="navbar-header">
-<a class="navbar-brand">Wellness Enrollment</a>
+  <a class="navbar-brand">Wellness Enrollment</a>
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav">
@@ -33,6 +36,9 @@
 </div>
 </div>
 </nav>
-
+<div class="container">
+  <div id='pieChart'></div>
+</div>
+</div>
 </body>
-<script src='/client/controller.js'></script>
+<script src='/client/controllers/statsController.js'></script>
