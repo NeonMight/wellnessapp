@@ -2,7 +2,7 @@ var ngapp = angular.module('profile', []);
 
 ngapp.controller('profileController', ['$scope', '$http', function($scope, $http)
 {
-  console.log('Controller is active');
+  //console.log('Controller is active');
 
   $scope.session = '';
 
@@ -10,7 +10,7 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
     // request get user session
     $http.get('/getUserSession/').success(function(response){
       // insert extra links if admin and add name to greeting on navbar
-      console.log('Got the session');
+      //console.log('Got the session');
       $scope.session = response;
     });
   };
@@ -39,7 +39,8 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
     {
       //do something
       refresh();
-      alert('Your account has been updated successfully');
+      //alert('Your account has been updated successfully');
+      $('#submissionComplete').modal();
     });
   }
 

@@ -14,7 +14,7 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
     // request get user session
     $http.get('/getUserSession/').success(function(response){
       // insert extra links if admin and add name to greeting on navbar
-      console.log('Got the session');
+      //console.log('Got the session');
       $scope.session = response;
     });
   };
@@ -41,9 +41,9 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
   };
 
   $scope.alterMe = function(id) {
-    console.log('Activity '+id+' status altered');
+    //console.log('Activity '+id+' status altered');
     //$scope.enrollmentList[id] = !$scope.enrollmentList[id]; // negate the current state (ng-model takes care of this)
-    console.log('Activity status: '+$scope.enrollmentList);
+    //console.log('Activity status: '+$scope.enrollmentList);
   };
 
   $scope.enroll = function(){
@@ -52,13 +52,15 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
     for (var i = 0; i < $scope.activityList.length; i++)
     {
       if ($scope.enrollmentList[i] == true) {
-        console.log("You are to be enrolled in: "+$scope.activityList[i].name)
+        //console.log("You are to be enrolled in: "+$scope.activityList[i].name)
         $http.post('/enrollUser/', $scope.activityList[i]).success(function(response){
-          console.log("Enrolled successfully");
+          //console.log("Enrolled successfully");
         });
-      // redirect to form.html
       }
-    };
+    }
+    // trigger modal
+    $('#submissionComplete').modal();
+    refresh();
   };
   refresh();
 

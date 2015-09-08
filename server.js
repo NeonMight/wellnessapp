@@ -150,7 +150,7 @@ app.get('/getEnrolledActivities/', function(req,res){
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
   var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", '+req.body.id+', CURDATE())';
-  console.log(querystring);
+  //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send("ok!");

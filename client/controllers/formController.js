@@ -10,7 +10,7 @@ ngapp.controller('userFormController', ['$scope', '$http', function($scope, $htt
     // request get user session
     $http.get('/getUserSession/').success(function(response){
       // insert extra links if admin and add name to greeting on navbar
-      console.log('Got the session');
+      //console.log('Got the session');
       $scope.session = response;
     });
   };
