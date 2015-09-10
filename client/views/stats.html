@@ -36,9 +36,52 @@
 </div>
 </div>
 </nav>
+
 <div class="container">
-  <div id='pieChart'></div>
+  <h2>Dashboard</h2>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Enrollment Overview</h3>
+      </div>
+      <div class="panel-body">
+        <div id='lineChart'></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class='col-lg-4'>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Enrollment Demographics</h3>
+        </div>
+        <div class='panel-body'>
+          <div id='pieChart'></div>
+        </div>
+      </div>
+    </div>
+
+  <div class='col-lg-4'>
+    <div class="panel panel-default">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class='panel-title'>Recent User Actions</h3>
+        </div>
+        <div class="panel-body">
+          <div class="list-group" ng-repeat='action in latestActionList'>
+            <a class="list-group-item">
+              {{ action.user }} enrolled in an activity on {{ action.enrollmentdate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
+
 </div>
 </body>
 <script src='/client/controllers/statsController.js'></script>

@@ -24,7 +24,7 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
   getSession();
 
   var refresh = function() {
-    $http.get('/getActivityList/').success(function(response){
+    $http.get('/getActivityListUnenrolled/').success(function(response){
       /*
       for (var i = 0; i < response.length; i++)
       {

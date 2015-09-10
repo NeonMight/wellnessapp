@@ -1,5 +1,5 @@
 <head>
-<title></title>
+<title>Account Administration</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <!-- Optional theme -->
@@ -9,8 +9,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
 </head>
-<body class="ng-cloak">
-
+<body class="ng-cloak" ng-app='manage'>
+<div ng-controller='manageController'>
 <nav class='navbar navbar-inverse navbar-fixed-top'>
 <div class="container-fluid">
 <div class="navbar-header">
@@ -33,5 +33,11 @@
 </div>
 </nav>
 
+<div class="container">
+  
+</div>
+
+
+</div>
 </body>
-<script src='/client/controllers/controller.js'></script>
+<script src='/client/controllers/manageController.js'></script>

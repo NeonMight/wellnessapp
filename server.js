@@ -120,7 +120,7 @@ app.get('/getUserProfile/', function(req,res){
 });
 
 
-app.get('/getActivityList/', function(req, res){
+app.get('/getActivityListUnenrolled/', function(req, res){
   currentDate = new Date(); //only get relevant form data for current year
   var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' and id not in (select activityid from Enrollment where user="'+req.session.user+'") order by percent;'; // for future, only get ones not enrolled in
   //console.log(querystring);
@@ -145,6 +145,45 @@ app.get('/getEnrolledActivities/', function(req,res){
   });
 });
 
+// for manage page
+app.get('/getUserList/', function(req, res){
+  var querystring = 'select * from User';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
+});
+
+// also for manage page
+app.get('/getEnrollmentList/', function(req, res){
+  var querystring = 'select * from Enrollment';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
+});
+
+app.get('/getLineChart', function(req, res){
+  var querystring = 'idk';
+  
+});
+
+// for stats page
+app.get('/getPieChart/', function(req, res){
+  var querystring = 'idk';
+});
+
+// also for stats page
+app.get('/getLatestActions/', function(req, res){
+  var querystring = 'select * from enrollment order by enrollmentdate desc limit 10';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
+});
 //////////////////////////////POST REQUESTS//////////////////////////////
 
 app.post('/enrollUser/', function(req, res){
@@ -175,7 +214,7 @@ app.put('/updateProfile/', function(req,res){
 });
 
 ////////////////////////////// SET UP LISTENER //////////////////////////////
-var globalPort = 3000;
+var globalPort = 3001;
 app.listen(globalPort, function(){
   console.log('Server listening on port '+globalPort);
 });
