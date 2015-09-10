@@ -62,6 +62,8 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
     $('#submissionComplete').modal();
     refresh();
   };
+
+
   refresh();
 
 }]);

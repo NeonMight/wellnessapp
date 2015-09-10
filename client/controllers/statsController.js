@@ -1,8 +1,8 @@
 var ngapp = angular.module('stats', []);
 
-ngapp.controller('statsController', ['$scope', '$http', function($scope, $http)
-{
+ngapp.controller('statsController', ['$scope', '$http', function($scope, $http){
   //console.log('Controller is active');
+
 
   $scope.session = '';
 
@@ -19,27 +19,19 @@ ngapp.controller('statsController', ['$scope', '$http', function($scope, $http)
   //loadNav();
   getSession();
 
-  var getLineChart = function(){
-  $http.get('/getLineChart').success(function(response){
-      Morris.Line({
-        element: 'lineChart',
-        data: [
-          { y: '4', a: 100},
-          { y: '5', a: 75},
-          { y: '6', a: 50},
-          { y: '7', a: 75},
-          { y: '8', a: 50},
-          { y: '9', a: 75},
-          { y: '10', a: 80}
-        ],
-        xkey: 'y',
-        ykeys: ['a'],
-        labels: ['2015']
-        });
-      };
-    })
-  };
 
+
+  var getLineChart = function(){
+    $http.get('/getLineChart').success(function(response){
+      Morris.Line({
+        element : 'lineChart',
+        data : [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}],
+        xkey : 'y',
+        ykeys : ['a'],
+        labels : ['Enrollment']
+      });
+    });
+  };
 
 
   // request all enrollment data, count each, and use data to construct morris chart

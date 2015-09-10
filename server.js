@@ -167,12 +167,18 @@ app.get('/getEnrollmentList/', function(req, res){
 
 app.get('/getLineChart', function(req, res){
   var querystring = 'idk';
-  
+  //console.log('line chart requested');
+  res.send('ok!');
 });
 
 // for stats page
 app.get('/getPieChart/', function(req, res){
-  var querystring = 'idk';
+  var querystring = 'select a.name, count(activityid) as quant from Activity a, Enrollment e where a.id=e.activityid group by a.name order by quant desc;';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
 });
 
 // also for stats page
