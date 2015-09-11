@@ -23,7 +23,7 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
   //loadNav();
   getSession();
 
-  var refresh = function() {
+  $scope.refresh = function() {
     $http.get('/getActivityListUnenrolled/').success(function(response){
       /*
       for (var i = 0; i < response.length; i++)
@@ -33,6 +33,7 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
       }
       */
       $scope.activityList = response;
+      $scope.enrollmentList = []; // initialize list
       for (var i = 0; i < $scope.activityList.length; i++)
       {
         $scope.enrollmentList.push(false); // all turned off initially
@@ -60,10 +61,10 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
     }
     // trigger modal
     $('#submissionComplete').modal();
-    refresh();
+    //refresh();
   };
 
 
-  refresh();
+  $scope.refresh();
 
 }]);

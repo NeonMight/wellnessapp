@@ -6,6 +6,23 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
 
   $scope.session = '';
 
+  $scope.userMod = '';
+
+  $scope.editUser = function(username){
+    $http.get('/userModifyRequest/'+username).success(function(response){
+      $scope.userMod = response;
+      document.getElementById('updateButton').disabled = false;
+    });
+  };
+
+  $scope.updateUser = function(){
+    $http.put('/modifyUserAsAdmin/', $scope.userMod).success(function(response){
+      refresh();
+      $scope.userMod = '';
+      document.getElementById('updateButton').disabled = true;
+    })
+  }
+
   var getSession = function(){
     // request get user session
     $http.get('/getUserSession/').success(function(response){
@@ -27,10 +44,6 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
     $http.get('/getUserList/').success(function(response){
       // get all users from user table
       $scope.userList = response;
-    });
-    $http.get('/getEnrollmentList/').success(function(response){
-      //get all enrollment from enrollment table
-      $scope.enrollmentList = response;
     });
   }
 

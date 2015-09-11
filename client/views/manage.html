@@ -34,7 +34,21 @@
 </nav>
 
 <div class="container">
-  
+<table class='table'>
+  <thead>
+  <th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th>
+  <thead>
+  <tr>
+  <td><input class='form-control' ng-model='userMod.firstname' placeholder="First Name"/></td>
+  <td><input class='form-control' ng-model='userMod.lastname' placeholder="Last Name"/></td>
+  <td><input class='form-control' ng-model='userMod.email' placeholder="Email"/></td>
+  <td><input class="form-control" ng-model='userMod.department' placeholder="Department"><input type='hidden' ng-model='userMod.username'/></td>
+  <td><button class='btn btn-info' ng-click='updateUser()' disabled="true" id='updateButton'>Update</button></td>
+</tr>
+<tr ng-repeat='user in userList'>
+  <td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td><td><button class='btn btn-default' ng-click='editUser(user.username)'>Edit</button></td>
+</tr>
+</table>
 </div>
 
 

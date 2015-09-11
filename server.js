@@ -102,6 +102,7 @@ app.get('/stats/', function(req,res){
 });
 
 ////////////////////////////// RESOURCE REQUESTS //////////////////////////////
+
 app.get('/getUserSession/', function(req, res){
   //console.log('User session requested');
   res.send(req.session);
@@ -121,6 +122,7 @@ app.get('/getUserProfile/', function(req,res){
 
 
 app.get('/getActivityListUnenrolled/', function(req, res){
+  //console.log('Activity list requested');
   currentDate = new Date(); //only get relevant form data for current year
   var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' and id not in (select activityid from Enrollment where user="'+req.session.user+'") order by percent;'; // for future, only get ones not enrolled in
   //console.log(querystring);
@@ -160,6 +162,18 @@ app.get('/getEnrollmentList/', function(req, res){
   var querystring = 'select * from Enrollment';
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
+});
+
+
+app.get('/userModifyRequest/:username', function(req, res){
+  var querystring = 'select * from User where username="'+req.params.username+'"';
+  console.log(querystring);
+  pool.getConnection(function(err,connection){
+    connection.query(querystring, function(err, rows){
+      //console.log('Results: '+rows);
       res.send(rows);
     });
   });
@@ -207,6 +221,9 @@ app.post('/enrollUser/', function(req, res){
 
 ////////////////////////////// PUT REQUESTS //////////////////////////////
 
+
+///////YOU BIG DUMMY!!!!!!!!!!!!!!!!!! YOU EDITED THE WRONG FUNCTION!!!!!!!!!!!!!!!!!!! FIX IT!!!!!!!!!!!!!!!!!!!!!!
+
 app.put('/updateProfile/', function(req,res){
   //firstname, lastname, email and department
   var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.session.user+'";';
@@ -214,6 +231,16 @@ app.put('/updateProfile/', function(req,res){
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       // return something
+      res.send('ok!');
+    });
+  });
+});
+
+app.put('modifyUserAsAdmin/', function(req, res){
+  var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.body.username+'";';
+  console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
       res.send('ok!');
     });
   });
