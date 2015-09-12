@@ -286,28 +286,34 @@
                 <br />
 
                 <div class="row">
-                  <div class="x_panel tile">
-                    <div class='x_title'>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="x_panel">
+                    <div class='row x_title'>
                       <h2>Enrollment Demographics</h2>
                     </div>
-                    <div id='pieChart'></div>
+                    <div class="clearfix"></div>
+                    <div class="x_content2">
+                      <div id='pieChart'></div>
+                    </div>
                   </div>
                 </div>
 
-
-
-                <div class="row">
-                  <div class="x_panel tile">
-                    <div class='x_title'>
+                <div class='col-md-6 col-sm-6 col-xs-6'>
+                <div class="x_panel tile">
+                    <div class='row x_title'>
                       <h2>Recent Activity</h2>
                     </div>
-                    <div class="list-group" ng-repeat='action in latestActionList'>
-                      <a class="list-group-item">
-                        {{ action.user }} enrolled in an activity on {{ action.enrollmentdate }}
-                      </a>
-                    </div>
+                    <div class="clearfix"></div>
+                    <div class="x_content2">
+                      <div class="list-group" ng-repeat='action in latestActionList'>
+                        <a class="list-group-item">
+                          {{ action.user }} enrolled in an activity on {{ action.enrollmentdate }}
+                        </a>
+                      </div>
                   </div>
-                </div>
+                  </div>
+              </div>
+            </div>
             </div>
             <!-- /page content -->
 
