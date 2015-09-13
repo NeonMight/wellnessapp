@@ -28,7 +28,7 @@ ngapp.controller('statsController', ['$scope', '$http', function($scope, $http){
         data : [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}],
         xkey : 'y',
         ykeys : ['a'],
-        labels : ['Enrollment']
+        labels : ['Total Enrolled Employees']
       });
     });
   };

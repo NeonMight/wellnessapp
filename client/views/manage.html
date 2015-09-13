@@ -11,45 +11,46 @@
 </head>
 <body class="ng-cloak" ng-app='manage'>
 <div ng-controller='manageController'>
-<nav class='navbar navbar-inverse navbar-fixed-top'>
-<div class="container-fluid">
-<div class="navbar-header">
-<a class="navbar-brand">Wellness Enrollment</a>
-</div>
-<div class="collapse navbar-collapse">
-<ul class="nav navbar-nav">
-  <li><a href="/">Home</a></li>
-  <li><a href='/enroll/'>Enroll</a></li>
-  <li><a href="/profile/">My Profile</a></li>
-  <li><a href="/form/">My Forms</a></li>
-  <li><a href="/logout/">Logout</a></li>
-  <li><a></a></li>
-  <li><a></a></li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-  <li id='greeting'><a class='navbar-brand' ng-model='session'>Welcome {{session.user}}</a></li>
-</ul>
-</div>
-</div>
-</nav>
+  <nav class='navbar navbar-inverse navbar-fixed-top'>
+  <div class="container-fluid">
+  <div class="navbar-header">
+  <a class="navbar-brand">Wellness Enrollment</a>
+  </div>
+  <div class="collapse navbar-collapse">
+  <ul class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href='/enroll/'>Enroll</a></li>
+    <li><a href="/profile/">My Profile</a></li>
+    <li><a href="/form/">My Forms</a></li>
+    <li><a href="/logout/">Logout</a></li>
+    <li><a></a></li>
+    <li><a></a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li id='greeting'><a class='navbar-brand' ng-model='session'>Welcome {{session.user}}</a></li>
+  </ul>
+  </div>
+  </div>
+  </nav>
 
-<div class="container">
-<table class='table'>
-  <thead>
-  <th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th>
-  <thead>
-  <tr>
-  <td><input class='form-control' ng-model='userMod.firstname' placeholder="First Name"/></td>
-  <td><input class='form-control' ng-model='userMod.lastname' placeholder="Last Name"/></td>
-  <td><input class='form-control' ng-model='userMod.email' placeholder="Email"/></td>
-  <td><input class="form-control" ng-model='userMod.department' placeholder="Department"><input type='hidden' ng-model='userMod.username'/></td>
-  <td><button class='btn btn-info' ng-click='updateUser()' disabled="true" id='updateButton'>Update</button></td>
-</tr>
-<tr ng-repeat='user in userList'>
-  <td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td><td><button class='btn btn-default' ng-click='editUser(user.username)'>Edit</button></td>
-</tr>
-</table>
-</div>
+  <div class="container">
+  <h2>User Information Management</h2>
+  <table class='table'>
+    <thead>
+    <th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th>
+    <thead>
+    <tr>
+    <td><input class='form-control' ng-model='userMod.firstname' placeholder="First Name"/></td>
+    <td><input class='form-control' ng-model='userMod.lastname' placeholder="Last Name"/></td>
+    <td><input class='form-control' ng-model='userMod.email' placeholder="Email"/></td>
+    <td><input class="form-control" ng-model='userMod.department' placeholder="Department"><input type='hidden' ng-model='userMod.username'/></td>
+    <td><button class='btn btn-info' ng-click='updateUser()' disabled="true" id='updateButton'>Update</button></td>
+  </tr>
+  <tr ng-repeat='user in userList'>
+    <td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td><td><button class='btn btn-default' ng-click='editUser(user.username)'>Edit</button></td>
+  </tr>
+  </table>
+  </div>
 
 
 </div>

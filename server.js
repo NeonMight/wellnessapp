@@ -170,7 +170,7 @@ app.get('/getEnrollmentList/', function(req, res){
 
 app.get('/userModifyRequest/:username', function(req, res){
   var querystring = 'select * from User where username="'+req.params.username+'"';
-  console.log(querystring);
+  //console.log(querystring);
   pool.getConnection(function(err,connection){
     connection.query(querystring, function(err, rows){
       //console.log('Results: '+rows);
@@ -221,13 +221,10 @@ app.post('/enrollUser/', function(req, res){
 
 ////////////////////////////// PUT REQUESTS //////////////////////////////
 
-
-///////YOU BIG DUMMY!!!!!!!!!!!!!!!!!! YOU EDITED THE WRONG FUNCTION!!!!!!!!!!!!!!!!!!! FIX IT!!!!!!!!!!!!!!!!!!!!!!
-
 app.put('/updateProfile/', function(req,res){
   //firstname, lastname, email and department
-  var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.session.user+'";';
-  //console.log(querystring);
+  var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.session.user+'" limit 1';
+  console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       // return something
@@ -237,7 +234,7 @@ app.put('/updateProfile/', function(req,res){
 });
 
 app.put('modifyUserAsAdmin/', function(req, res){
-  var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.body.username+'";';
+  var querystring = 'update User set firstname="'+req.body.firstname+'", lastname="'+req.body.lastname+'", email="'+req.body.email+'", department="'+req.body.department+'" where username="'+req.body.username+'"';
   console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){

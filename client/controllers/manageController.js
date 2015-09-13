@@ -10,7 +10,9 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
 
   $scope.editUser = function(username){
     $http.get('/userModifyRequest/'+username).success(function(response){
-      $scope.userMod = response;
+      console.log('Got the results');
+      $scope.userMod = response[0]; //user is in array
+      console.log($scope.userMod.firstname);
       document.getElementById('updateButton').disabled = false;
     });
   };
