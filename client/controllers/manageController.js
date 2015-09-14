@@ -10,18 +10,18 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
 
   $scope.editUser = function(username){
     $http.get('/userModifyRequest/'+username).success(function(response){
-      console.log('Got the results');
+      //console.log('Got the results');
       $scope.userMod = response[0]; //user is in array
-      console.log($scope.userMod.firstname);
+      //console.log($scope.userMod.firstname);
       document.getElementById('updateButton').disabled = false;
     });
   };
 
   $scope.updateUser = function(){
-    $http.put('/modifyUserAsAdmin/', $scope.userMod).success(function(response){
-      refresh();
+    $http.put('/modifyUserAsAdmin/',$scope.userMod).success(function(response){
       $scope.userMod = '';
       document.getElementById('updateButton').disabled = true;
+      $('#submissionComplete').modal();
     })
   }
 
@@ -41,7 +41,7 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
   $scope.enrollmentList = '';
   $scope.userList = '';
 
-  var getUsersAndEnrollment = function(){
+  $scope.getResources = function(){
     //get a list of all users and all enrollment
     $http.get('/getUserList/').success(function(response){
       // get all users from user table
@@ -49,5 +49,5 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
     });
   }
 
-  getUsersAndEnrollment();
+  $scope.getResources();
 }]);
