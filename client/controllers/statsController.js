@@ -22,7 +22,7 @@ ngapp.controller('statsController', ['$scope', '$http', function($scope, $http){
 
 
   var getLineChart = function(){
-    $http.get('/getLineChart').success(function(response){
+    $http.get('/getLineChart/').success(function(response){
       Morris.Line({
         element : 'lineChart',
         data : [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}],
@@ -38,12 +38,19 @@ ngapp.controller('statsController', ['$scope', '$http', function($scope, $http){
 
   var getPieChart = function()
   {
+    $http.get('/getPieChart/').success(function(response){
+    var slices = [];
+    response.forEach(function(item){
+      slices.push({label : item.name, value : item.quant});
+    });
     Morris.Donut(
       {
         element : 'pieChart',
-        data : [{label : "Disc Bro Chill", value : 45}, {label : "CROSSFIT", value : 60}, {label : 'Srs Bizness Softball', value : 12}, {label: 'ZumbaMania', value : 30}]
+        //data : [{label : "Disc Bro Chill", value : 45}, {label : "CROSSFIT", value : 60}, {label : 'Srs Bizness Softball', value : 12}, {label: 'ZumbaMania', value : 30}]
+        data : slices
       }
     );
+  });
   };
 
   //request all latest entries into enrollment dable sorted by date and return

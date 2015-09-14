@@ -187,7 +187,7 @@ app.get('/getLineChart', function(req, res){
 
 // for stats page
 app.get('/getPieChart/', function(req, res){
-  var querystring = 'select a.name, count(activityid) as quant from Activity a, Enrollment e where a.id=e.activityid group by a.name order by quant desc;';
+  var querystring = 'select a.name as name, count(activityid) as quant from Activity a, Enrollment e where a.id=e.activityid group by a.name order by quant desc;';
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send(rows);
