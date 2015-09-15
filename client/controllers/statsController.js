@@ -23,9 +23,15 @@ ngapp.controller('statsController', ['$scope', '$http', function($scope, $http){
 
   var getLineChart = function(){
     $http.get('/getLineChart/').success(function(response){
+      var points = [];
+      response.forEach(function(item){
+        points.push({y : item.year.toString(), a : item.quant.toString()});
+      });
+      // points = [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}]
       Morris.Line({
         element : 'lineChart',
-        data : [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}],
+        //data : [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}],
+        data : points,
         xkey : 'y',
         ykeys : ['a'],
         labels : ['Total Enrolled Employees']

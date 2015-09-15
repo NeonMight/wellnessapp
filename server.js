@@ -180,9 +180,13 @@ app.get('/userModifyRequest/:username', function(req, res){
 });
 
 app.get('/getLineChart', function(req, res){
-  var querystring = 'idk';
+  var querystring = 'select extract(year from enrollmentdate) as year, count(*) as quant from Enrollment group by year order by year;';
   //console.log('line chart requested');
-  res.send('ok!');
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
 });
 
 // for stats page
