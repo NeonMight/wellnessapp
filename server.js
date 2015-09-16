@@ -105,6 +105,7 @@ app.get('/stats/', function(req,res){
 
 app.get('/getUserSession/', function(req, res){
   //console.log('User session requested');
+  // get the users credit count in the session to enforce form validation
   res.send(req.session);
 });
 
@@ -119,7 +120,6 @@ app.get('/getUserProfile/', function(req,res){
     });
   });
 });
-
 
 app.get('/getActivityListUnenrolled/', function(req, res){
   //console.log('Activity list requested');
@@ -146,6 +146,16 @@ app.get('/getEnrolledActivities/', function(req,res){
     });
   });
 });
+
+app.get('/viewEvents/:id', function(req, res){
+  var querystring = 'select * from Event where activityid='+req.params.id;
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
+});
+
 
 // for manage page
 app.get('/getUserList/', function(req, res){

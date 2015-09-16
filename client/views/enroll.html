@@ -43,23 +43,31 @@
 </thead>
 <tr ng-repeat='activity in activityList'>
   <td>{{ activity.name }}</td><td>{{ activity.percent }}</td><td>{{ activity.description }}</td>
-  <td>
-
+  <td><button type="button" class="btn btn-info btn-sm" ng-click='viewEvents(activity.id)'>View Events</button>
+  </td>
+<td><input type='checkbox' ng-model='enrollmentList[$index]' ng-change='alterMe($index)'></td>
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="">View Events</button>
+
+</tr>
+
+</table>
+<button ng-click='enroll()' class="btn btn-default">Submit</button>
 
 <!-- Modal -->
-<div id="$index" class="modal fade" role="dialog">
+<div id="eventDetail" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal # {{ $index }}</h4>
+        <h4 class="modal-title">Event List</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+        <div ng-repeat='event in eventList'>
+          <p>{{event.eventname}} : {{event.startdate}} - {{event.enddate}}</p>
+        </div>
+        <div ng-hide='selectedActivity.eventList.length'>No events</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -68,12 +76,6 @@
 
   </div>
 </div>
-
-  </td>
-  <td><input type='checkbox' ng-model='enrollmentList[$index]' ng-change='alterMe($index)'></td>
-</tr>
-</table>
-<button ng-click='enroll()' class="btn btn-default">Submit</button>
 
 <!-- Modal -->
 <div id="submissionComplete" class="modal fade" role="dialog">

@@ -9,6 +9,7 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
   $scope.enrollmentList = [];
 
   $scope.session = '';
+  $scope.eventList = [];
 
   var getSession = function(){
     // request get user session
@@ -62,6 +63,13 @@ ngapp.controller('enrollmentController', ['$scope', '$http', function($scope, $h
     // trigger modal
     $('#submissionComplete').modal();
     //refresh();
+  };
+
+  $scope.viewEvents = function(id){
+    $http.get('/viewEvents/'+id).success(function(response){
+      $scope.eventList = response;
+      $('#eventDetail').modal();
+    });
   };
 
 
