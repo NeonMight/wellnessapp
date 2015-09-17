@@ -38,7 +38,7 @@
   <h2>User Information Management</h2>
   <table class='table'>
     <thead>
-    <th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th>
+    <th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th><th></th>
     <thead>
     <tr>
     <td><input class='form-control' ng-model='userMod.firstname' placeholder="First Name"/></td>
@@ -48,7 +48,9 @@
     <td><button class='btn btn-info' ng-click='updateUser()' disabled="true" id='updateButton'>Update</button></td>
   </tr>
   <tr ng-repeat='user in userList'>
-    <td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td><td><button class='btn btn-default' ng-click='editUser(user.username)'>Edit</button></td>
+    <td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td>
+    <td><button class='btn btn-default' ng-click='editUser(user.username)'>Edit</button></td>
+    <td><td><button class='btn btn-warning' ng-click='viewEnrollmentForUser(user.username)'>View Enrollment</button></td></td>
   </tr>
   </table>
   </div>
@@ -65,6 +67,31 @@
       </div>
       <div class="modal-body">
         <p>User Profile has been updated successfully.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='getResources()'>Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div id="userEnrollment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click='getResources()'>&times;</button>
+        <h4 class="modal-title">Enrollment for user</h4>
+      </div>
+      <div class="modal-body">
+        <div ng-repeat='activity in enrollmentList'>
+          <p>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</p>
+        </div>
+        <p ng-hide='enrollmentList.length'>No enrolled activities</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='getResources()'>Close</button>

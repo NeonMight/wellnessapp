@@ -168,8 +168,9 @@ app.get('/getUserList/', function(req, res){
 });
 
 // also for manage page
-app.get('/getEnrollmentList/', function(req, res){
-  var querystring = 'select * from Enrollment';
+app.get('/viewEnrollmentForUser/:username', function(req, res){
+  var querystring = 'select * from Activity a inner join Enrollment e where a.id=e.activityid and e.user="'+req.params.username+'"';
+  //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send(rows);
@@ -231,8 +232,6 @@ app.post('/enrollUser/', function(req, res){
   });
 });
 
-
-
 ////////////////////////////// PUT REQUESTS //////////////////////////////
 
 app.put('/updateProfile/', function(req,res){
@@ -258,7 +257,7 @@ app.put('/modifyUserAsAdmin/', function(req, res){
 });
 
 ////////////////////////////// SET UP LISTENER //////////////////////////////
-var globalPort = 3001;
+var globalPort = 3000;
 app.listen(globalPort, function(){
   console.log('Server listening on port '+globalPort);
 });

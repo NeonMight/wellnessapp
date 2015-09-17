@@ -38,8 +38,8 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
   //loadNav();
   getSession();
 
-  $scope.enrollmentList = '';
-  $scope.userList = '';
+  $scope.enrollmentList = [];
+  $scope.userList = [];
 
   $scope.getResources = function(){
     //get a list of all users and all enrollment
@@ -50,4 +50,12 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
   }
 
   $scope.getResources();
+
+  $scope.viewEnrollmentForUser = function(username){
+    $scope.enrollmentList = [];
+    $http.get('/viewEnrollmentForUser/'+username).success(function(response){
+      $scope.enrollmentList = response;
+      $('#userEnrollment').modal();
+    })
+  }
 }]);
