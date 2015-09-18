@@ -11,7 +11,7 @@
 <script src='/client/js/bootstrap.min.js'></script>
 </head>
 <body class="ng-cloak" ng-app='manage'>
-<div ng-controller='manageController'>
+<div ng-controller='manageController' class="container">
   <nav class='navbar navbar-inverse navbar-fixed-top'>
   <div class="container-fluid">
   <div class="navbar-header">
@@ -34,7 +34,7 @@
   </div>
   </nav>
 
-  <div class="container">
+  <div class="right_col">
   <h2>User Information Management</h2>
   <table class='table'>
     <thead>
@@ -88,9 +88,13 @@
         <h4 class="modal-title">Enrollment for user</h4>
       </div>
       <div class="modal-body">
-        <div ng-repeat='activity in enrollmentList'>
-          <p>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</p>
-        </div>
+        <table>
+        <thead>
+        </thead>
+          <tr ng-repeat='activity in enrollmentList'>
+            <td><small>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</small></td><td><input type="checkbox" ng-model='activity.complete'></td>
+          </tr>
+        </table>
         <p ng-hide='enrollmentList.length'>No enrolled activities</p>
       </div>
       <div class="modal-footer">

@@ -223,7 +223,7 @@ app.get('/getLatestActions/', function(req, res){
 
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
-  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", '+req.body.id+', CURDATE())';
+  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate, complete) values("'+req.session.user+'", '+req.body.id+', CURDATE(), 0)';
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){

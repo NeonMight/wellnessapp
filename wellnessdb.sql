@@ -43,6 +43,7 @@ create table Enrollment(
 user varchar(100) not null,
 activityid int not null,
 enrollmentdate date not null,
+complete boolean not null,
 primary key(user, activityid),
 foreign key(user) references User(username),
 foreign key(activityid) references Activity(id)
