@@ -58,4 +58,9 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
       $('#userEnrollment').modal();
     })
   }
+
+  $scope.updateEnrollmentStatus = function(){
+    // send all activities that have changed
+    console.log('Time to updoot the status!');
+  };
 }]);

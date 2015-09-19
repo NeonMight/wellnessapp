@@ -256,6 +256,11 @@ app.put('/modifyUserAsAdmin/', function(req, res){
   });
 });
 
+app.put('/updateEnrollmentStatus/', function(req, res){
+  var querystring = 'update Enrollment set complete="'+req.body.complete+'" where user="'+req.body.user+'"';
+  console.log(querystring);
+});
+
 ////////////////////////////// SET UP LISTENER //////////////////////////////
 var globalPort = 3000;
 app.listen(globalPort, function(){

@@ -88,8 +88,9 @@
         <h4 class="modal-title">Enrollment for user</h4>
       </div>
       <div class="modal-body">
-        <table>
+        <table class="table">
         <thead>
+          <th>Activity</th><th>Status</th>
         </thead>
           <tr ng-repeat='activity in enrollmentList'>
             <td><small>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</small></td><td><input type="checkbox" ng-model='activity.complete'></td>
@@ -98,7 +99,7 @@
         <p ng-hide='enrollmentList.length'>No enrolled activities</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='getResources()'>Close</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click='updateEnrollmentStatus()'>Save</button>
       </div>
     </div>
 
