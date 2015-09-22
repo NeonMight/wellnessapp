@@ -49,6 +49,13 @@ foreign key(user) references User(username),
 foreign key(activityid) references Activity(id)
 );
 
+create table Waiver(
+user varchar(100) not null,
+waivedate date not null,
+primary key(user),
+foreign key(user) references User(username)
+);
+
 -- TEST DATA
 
 insert into User(department, email, enabled, firstname, lastname, password, username)

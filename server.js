@@ -26,8 +26,13 @@ app.use('/client', express.static(__dirname+'/client'));
 
 app.get('/', function(req, res){  //check if user has logged in with function
   if (req.session.admin == 1) res.sendFile(__dirname+'/client/views/admin.html');
-  else if (req.session.user) res.sendFile(__dirname+'/client/views/main.html');
+  else if (req.session.user) res.sendFile(__dirname+'/client/views/shell.html');
   else res.sendFile(__dirname+'/client/views/portal.html');
+});
+
+app.get('/main/', function(req,res){
+  if (req.session.admin==1) res.sendFile(__dirname+'/client/views/main.html');
+  else res.sendFile(__dirname+'/client/views/main.html');
 });
 
 app.post('/login/', function(req, res){

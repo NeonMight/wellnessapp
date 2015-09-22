@@ -1,4 +1,4 @@
-var ngapp = angular.module('main', []);
+var ngapp = angular.module('main', ['ngSanitize']);
 
 ngapp.controller('mainController', ['$scope', '$http', function($scope, $http)
 {
@@ -15,8 +15,17 @@ ngapp.controller('mainController', ['$scope', '$http', function($scope, $http)
     });
   };
 
+  $scope.currentPage = '';
 
-  //loadNav();
+  $scope.getCurrentPage = function(){
+    $http.get('/main/').success(function(response){
+      // you will need to explicitly escape the response with sce
+      $scope.currentPage = response;
+    });
+  };
+
+
   getSession();
+  $scope.getCurrentPage();
 
 }]);
