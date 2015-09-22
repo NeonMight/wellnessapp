@@ -60,7 +60,14 @@ ngapp.controller('manageController', ['$scope', '$http', function($scope, $http)
   }
 
   $scope.updateEnrollmentStatus = function(){
-    // send all activities that have changed
-    console.log('Time to updoot the status!');
+    // send all activities (that have changed) that are in the enrollmentList
+    $scope.enrollmentList.forEach(function(activity){
+      //console.log(activity);
+      //console.log(activity.user);
+      $http.put('/updateEnrollmentStatus/', activity).success(function(response){
+        // do nothing
+      });
+    });
+    //console.log('Time to updoot the status!');
   };
 }]);

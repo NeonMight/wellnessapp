@@ -257,8 +257,14 @@ app.put('/modifyUserAsAdmin/', function(req, res){
 });
 
 app.put('/updateEnrollmentStatus/', function(req, res){
-  var querystring = 'update Enrollment set complete="'+req.body.complete+'" where user="'+req.body.user+'"';
+  //console.log(req.body.user);
+  var querystring = 'update Enrollment set complete='+req.body.complete+' where user="'+req.body.user+'"';
   console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send('ok!');
+    });
+  });
 });
 
 ////////////////////////////// SET UP LISTENER //////////////////////////////
