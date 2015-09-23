@@ -48,11 +48,14 @@ body {
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
-<body>
-<div class='container'>
+<body ng-app='portal'>
+<div class='container' ng-controller='portalController'>
 <div class="col-xs-4">
 </div>
 <div class='col-xs-4'>
+<div class="alert alert-danger" ng-hide='!failure'>
+  <strong>Error</strong> Username and password combination incorrect.
+</div>
 <form method='post' action='/login/' class="form-signin">
 <h2 class="form-signin-heading">Be Fit, Be Well</h2>
 <label for="username" class="sr-only">Username</label>
@@ -66,3 +69,22 @@ body {
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
+<script>
+var ngapp = angular.module('portal', []);
+
+ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
+{
+  //console.log('Controller active');
+  $scope.failure = null;
+  // get session to see login attempts
+  $scope.getSession = function(){
+    $http.get('/getUserSession/').success(function(response){
+      //console.log(response.failure);
+      $scope.failure = response.failure;
+    });
+  };
+
+  $scope.getSession();
+}]);
+
+</script>

@@ -1,6 +1,6 @@
 var ngapp = angular.module('main', ['ngSanitize']);
 
-ngapp.controller('mainController', ['$scope', '$http', function($scope, $http)
+ngapp.controller('mainController', ['$scope', '$http', '$sce', function($scope, $http, $sce)
 {
   //console.log('Controller is active');
 
@@ -19,11 +19,17 @@ ngapp.controller('mainController', ['$scope', '$http', function($scope, $http)
 
   $scope.getCurrentPage = function(){
     $http.get('/main/').success(function(response){
-      // you will need to explicitly escape the response with sce
-      $scope.currentPage = response;
+      // you will need to explicitly escape
+      $scope.currentPage = $sce.trustAsHtml(response); // It works! WOO!
     });
   };
 
+  $scope.changePage = function(url){
+    $http.get('/'+url+'/').success(function(response){
+      console.log(response);
+      $scope.currentPage = $sce.trustAsHtml(response);
+    });
+  };
 
   getSession();
   $scope.getCurrentPage();

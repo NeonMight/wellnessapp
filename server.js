@@ -25,14 +25,16 @@ app.use('/client', express.static(__dirname+'/client'));
 ////////////////////////////// AUTHENTICATION & INDEX //////////////////////////////
 
 app.get('/', function(req, res){  //check if user has logged in with function
-  if (req.session.admin == 1) res.sendFile(__dirname+'/client/views/admin.html');
-  else if (req.session.user) res.sendFile(__dirname+'/client/views/shell.html');
+  if (req.session.user) res.sendFile(__dirname+'/client/views/shell.html');
   else res.sendFile(__dirname+'/client/views/portal.html');
 });
 
 app.get('/main/', function(req,res){
-  if (req.session.admin==1) res.sendFile(__dirname+'/client/views/main.html');
-  else res.sendFile(__dirname+'/client/views/main.html');
+  if (req.session.user) //must be in shell page to request templates
+  {
+    if (req.session.admin==1) res.sendFile(__dirname+'/client/views/main.html');
+    else res.sendFile(__dirname+'/client/views/main.html');
+  }
 });
 
 app.post('/login/', function(req, res){
@@ -53,6 +55,7 @@ app.post('/login/', function(req, res){
           req.session.user = rows[0].username; //set to the user's username
           req.session.admin = rows[0].isadmin; //check if user is an admin or not
         }
+        else req.session.failure = 'Error';
         res.redirect('/'); //must wait for query results before redirecting
       }
     });
@@ -66,43 +69,36 @@ app.get('/logout/', function(req, res){
   res.redirect('/');
 });
 
-/////////////////////////////// PARTIAL TEMPLATES //////////////////////////////
-
-app.get('/navbar/', function(req, res){
-  res.sendFile(__dirname+'/client/views/navbar.html');
-});
-
-
 ////////////////////////////// MAIN TEMPLATES //////////////////////////////
 
 app.get('/enroll/', function(req, res){
-  if (!req.session.user) res.redirect('/');
+  if (!req.session.user) res.send('');
   //serve up the enroll view
   res.sendFile(__dirname+'/client/views/enroll.html');
 });
 
 app.get('/decline/', function(req, res){
-  if (!req.session.user) res.redirect('/');
+  if (!req.session.user) res.send('');
   res.sendFile(__dirname+'/client/views/waiver.html');
 });
 
 app.get('/profile/', function(req,res){
-  if (!req.session.user) res.redirect('/');
+  if (!req.session.user) res.send('');
   res.sendFile(__dirname+'/client/views/profile.html');
 });
 
 app.get('/form/', function(req,res){
-  if (!req.session.user) res.redirect('/');
+  if (!req.session.user) res.send('');
   res.sendFile(__dirname+'/client/views/form.html');
 });
 
 app.get('/manage/', function(req,res){
-  if (!req.session.user || req.session.admin == 0) res.redirect('/');
+  if (!req.session.user || req.session.admin == 0) res.send('');
   res.sendFile(__dirname+'/client/views/manage.html');
 });
 
 app.get('/stats/', function(req,res){
-  if (!req.session.user || req.session.admin == 0) res.redirect('/');
+  if (!req.session.user || req.session.admin == 0) res.send('');
   res.sendFile(__dirname+'/client/views/stats.html');
 });
 
