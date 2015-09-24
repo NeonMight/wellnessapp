@@ -17,21 +17,15 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', function($scope, 
 
   $scope.currentPage = '';
 
-  $scope.getCurrentPage = function(){
-    $http.get('/main/').success(function(response){
-      // you will need to explicitly escape
-      $scope.currentPage = $sce.trustAsHtml(response); // It works! WOO!
-    });
-  };
-
-  $scope.changePage = function(url){
-    $http.get('/'+url+'/').success(function(response){
-      console.log(response);
+  $scope.getPage = function(url){
+    $http.get(url).success(function(response){
+      //console.log(response);
       $scope.currentPage = $sce.trustAsHtml(response);
+      // now tell it to get resources for that app
     });
   };
 
   getSession();
-  $scope.getCurrentPage();
+  $scope.getPage('/main/');
 
 }]);

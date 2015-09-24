@@ -1,6 +1,5 @@
-<div ng-app='profile' class="ng-cloak">
-<div ng-controller='profileController' class="container">
-<h2>User Profile</h2>
+<div ng-controller='profileController' class="">
+<h2>User Profile</h2><br>
 <div class='panel panel-default'>
 <div class="panel-heading">
   <h3 class="panel-title" ng-model='userProfile'>User profile for: <b>{{userProfile.username}}</b></h3>
@@ -37,13 +36,10 @@
 </div>
 
 </div>
-</div>
 <script>
-var ngapp = angular.module('profile', []);
-
 ngapp.controller('profileController', ['$scope', '$http', function($scope, $http)
 {
-  //console.log('Controller is active');
+  console.log('Profile controller is active');
 
   $scope.session = '';
 

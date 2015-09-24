@@ -32,7 +32,7 @@ app.get('/', function(req, res){  //check if user has logged in with function
 app.get('/main/', function(req,res){
   if (req.session.user) //must be in shell page to request templates
   {
-    if (req.session.admin==1) res.sendFile(__dirname+'/client/views/main.html');
+    if (req.session.admin==1) res.sendFile(__dirname+'/client/views/admin.html');
     else res.sendFile(__dirname+'/client/views/main.html');
   }
 });

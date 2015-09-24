@@ -1,40 +1,6 @@
-<head>
-<title>Activity Enrollment</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/client/css/site.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
-<script src='/client/js/bootstrap.min.js'></script>
-</head>
-<body ng-app='enrollment' class="ng-cloak">
-<div ng-controller='enrollmentController' class='container'>
-
-<nav class='navbar navbar-inverse navbar-fixed-top'>
-<div class="container-fluid">
-<div class="navbar-header">
-<a class="navbar-brand">Wellness Enrollment</a>
-</div>
-<div class="collapse navbar-collapse">
-<ul class="nav navbar-nav">
-  <li><a href="/">Home</a></li>
-  <li><a href='/enroll/'>Enroll</a></li>
-  <li><a href="/profile/">My Profile</a></li>
-  <li><a href="/form/">My Forms</a></li>
-  <li><a href="/logout/">Logout</a></li>
-  <li><a></a></li>
-  <li><a></a></li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-  <li id='greeting'><a class='navbar-brand' ng-model='session'>Welcome {{session.user}}</a></li>
-</ul>
-</div>
-</div>
-</nav>
-
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js'></script>
+<div ng-app='enrollment' class="">
+<div ng-controller='enrollmentController' class=''>
 <h2>Activity Enrollment</h2>
 <form>
 <table class='table'>
@@ -100,5 +66,85 @@
 
 </form>
 </div>
-</body>
-<script src='/client/controllers/enrollmentcontroller.js'></script>
+</div>
+<script>
+var enroll = angular.module('enrollment', []);
+
+enroll.controller('enrollmentController', ['$scope', '$http', function($scope, $http)
+{
+  //console.log('Controller is active');
+
+  $scope.activityList = [];
+
+  $scope.enrollmentList = [];
+
+  $scope.session = '';
+  $scope.eventList = [];
+
+  var getSession = function(){
+    // request get user session
+    $http.get('/getUserSession/').success(function(response){
+      // insert extra links if admin and add name to greeting on navbar
+      //console.log('Got the session');
+      $scope.session = response;
+    });
+  };
+
+
+  //loadNav();
+  getSession();
+
+  $scope.refresh = function() {
+    $http.get('/getActivityListUnenrolled/').success(function(response){
+      /*
+      for (var i = 0; i < response.length; i++)
+      {
+        console.log("Item "+i+" pushed.");
+        $scope.activityList.push(response[i]); //convert each object in array to JSON and put into scope
+      }
+      */
+      $scope.activityList = response;
+      $scope.enrollmentList = []; // initialize list
+      for (var i = 0; i < $scope.activityList.length; i++)
+      {
+        $scope.enrollmentList.push(false); // all turned off initially
+      }
+    });
+  };
+
+  $scope.alterMe = function(id) {
+    //console.log('Activity '+id+' status altered');
+    //$scope.enrollmentList[id] = !$scope.enrollmentList[id]; // negate the current state (ng-model takes care of this)
+    //console.log('Activity status: '+$scope.enrollmentList);
+  };
+
+  $scope.enroll = function(){
+    //collect all true elements in the enrollment list, use the indexes to reference the activity list, and submit to server
+    //console.log($scope.activityList.length == $scope.enrollmentList.length) //check if lengths are the same first
+    for (var i = 0; i < $scope.activityList.length; i++)
+    {
+      if ($scope.enrollmentList[i] == true) {
+        //console.log("You are to be enrolled in: "+$scope.activityList[i].name)
+        $http.post('/enrollUser/', $scope.activityList[i]).success(function(response){
+          //console.log("Enrolled successfully");
+        });
+      }
+    }
+    // trigger modal
+    $('#submissionComplete').modal();
+    //refresh();
+  };
+
+  $scope.viewEvents = function(id){
+    $http.get('/viewEvents/'+id).success(function(response){
+      $scope.eventList = response;
+      $('#eventDetail').modal();
+    });
+  };
+
+
+  $scope.refresh();
+
+}]);
+
+</script>
