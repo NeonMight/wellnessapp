@@ -1,4 +1,4 @@
-<div ng-controller='profileController' class="">
+<div class="">
 <h2>User Profile</h2><br>
 <div class='panel panel-default'>
 <div class="panel-heading">
@@ -36,14 +36,17 @@
 </div>
 
 </div>
+</div>
 <script>
-ngapp.controller('profileController', ['$scope', '$http', function($scope, $http)
+/*
+var profile = angular.module('qwert',[]);
+profile.controller('profileController', ['$scope', '$http', function($scope, $http)
 {
   console.log('Profile controller is active');
 
   $scope.session = '';
 
-  var getSession = function(){
+  $scope.getSession = function(){
     // request get user session
     $http.get('/getUserSession/').success(function(response){
       // insert extra links if admin and add name to greeting on navbar
@@ -54,13 +57,13 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
 
 
   //loadNav();
-  getSession();
+  $scope.getSession();
 
   // Now make a request for the resources with http get (refresh function for now to request resources)
 
   $scope.userProfile = '';
 
-  var refresh = function()
+  $scope.refresh = function()
   {
     $http.get('/getUserProfile/').success(function(response)
     {
@@ -68,7 +71,7 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
     });
   };
 
-  refresh();
+  $scope.refresh();
 
   $scope.updateInfo = function()
   {
@@ -82,4 +85,5 @@ ngapp.controller('profileController', ['$scope', '$http', function($scope, $http
   }
 
 }]);
+*/
 </script>
