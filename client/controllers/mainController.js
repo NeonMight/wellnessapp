@@ -1,7 +1,29 @@
 // this app should follow a single controller approach, or at least a single app approach
-var ngapp = angular.module('main', ['ngSanitize']);
+var ngapp = angular.module('main', ['ngSanitize']).directive('compile', ['$compile', function ($compile) {
+    return function(scope, element, attrs) {
+        //console.log('Directive call');
+        scope.$watch(
+            function(scope) {
+                // watch the 'compile' expression for changes
+                //console.log('Change')
+                return scope.$eval(attrs.compile);
+            },
+            function(value) {
+                // when the 'compile' expression changes
+                // assign it into the current DOM
+                element.html(value);
+                //console.log('Compiling...');
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
+            }
+        );
+    };
+}]);
 
-ngapp.controller('mainController', ['$scope', '$http', '$sce', function($scope, $http, $sce)
+ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', function($scope, $http, $sce, $compile)
 {
   //console.log('Controller is active');
 
@@ -24,7 +46,8 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', function($scope, 
   $scope.getPage = function(url){
     $http.get(url).success(function(response){
       //console.log(response);
-      $scope.currentPage = $sce.trustAsHtml(response);
+      // $scope.currentPage = $sce.trustAsHtml(response);
+      $scope.currentPage = response; // no more sce; compile directive handles template
       // now tell it to get resources for that app
       $scope.getResources(url);
     });
@@ -66,13 +89,3 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', function($scope, 
   $scope.getPage('/main/');
 
 }]);
-
-ngapp.directive('bindy', function($compile) {
-  return {
-    link: function($scope, $element, $attrs) {
-      var html = $scope.$eval($attrs.bindy);
-      $element.html(html);
-      $compile($element.contents())($scope);
-    }
-  };
-});
