@@ -2,33 +2,38 @@
 <br>
 
 <div class="col-sm-4">
-    <a href="/enroll/" class="tile purple" role="button" style='text-decoration: none;'>
+    <a ng-click="getPage('/enroll/')" class="tile purple" role="button" style='text-decoration: none;'>
         <h3 class="title">Enroll</h3>
         <p>Sign up for the Wellness Program! </p><br />
     </a>
 
-    <a href="/manage/" class="tile blue" role="button" style="text-decoration: none;">
+    <a ng-click='getPage("/manage/")' class="tile blue" role="button" style="text-decoration: none;">
       <h3 class="title">Manage</h3>
       <p>Edit user accounts and enrollment.</p><br>
     </a>
 </div>
 
 <div class="col-sm-4">
-    <a href="/decline/" class="tile red" role="button" style='text-decoration: none;'>
+    <a ng-click='getPage("/waiver/")' class="tile red" role="button" style='text-decoration: none;'>
         <h3 class="title">Decline</h3>
         <p>Go here to waive your enrollment into the progam.  We hope you reconsider!</p>
     </a>
 
-    <a href="/stats/" class="tile green" role="button" style="text-decoration: none;">
+    <a ng-click="getPage('/stats/')" class="tile green" role="button" style="text-decoration: none;">
       <h3 class="title">Stats</h3>
-      <p>View enrollment dashboard.</p><br>
+      <p>Dashboard for enrollment statistics</p><br>
     </a>
 </div>
 
 <div class="col-sm-4">
-    <a href="/profile/" class="tile orange" role="button" style='text-decoration: none;'>
+    <a ng-click="getPage('/profile/')" class="tile orange" role="button" style='text-decoration: none;'>
         <h3 class="title">My Profile</h3>
         <p>View your profile and progress report.</p><br />
+    </a>
+
+    <a ng-click="getPage('/activities/')" class="tile black" role="button" style='text-decoration: none;'>
+        <h3 class="title">Activity Management</h3>
+        <p>Create and edit activities</p><br />
     </a>
 </div>
 

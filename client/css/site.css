@@ -11,7 +11,7 @@
         margin-top: 0px;
     }
 
-    .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
+    .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green, .tile.black{
         color: #fff;
     }
 
@@ -56,7 +56,13 @@
         }
 
 
+    .tile.black {
+      background : #0a0a0a;
+    }
 
+    .tile.black:hover {
+      background : #101010;
+    }
 
             .tile.light-blue {
         background: #5094DE;

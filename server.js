@@ -77,7 +77,7 @@ app.get('/enroll/', function(req, res){
   res.sendFile(__dirname+'/client/views/enroll.html');
 });
 
-app.get('/decline/', function(req, res){
+app.get('/waiver/', function(req, res){
   if (!req.session.user) res.send('');
   res.sendFile(__dirname+'/client/views/waiver.html');
 });
@@ -100,6 +100,11 @@ app.get('/manage/', function(req,res){
 app.get('/stats/', function(req,res){
   if (!req.session.user || req.session.admin == 0) res.send('');
   res.sendFile(__dirname+'/client/views/stats.html');
+});
+
+app.get('/activities/', function(req,res){
+  if (!req.session.user || req.session.admin == 0) res.send('');
+  res.sendFile(__dirname+'/client/views/activities.html');
 });
 
 ////////////////////////////// RESOURCE REQUESTS //////////////////////////////
