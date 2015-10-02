@@ -26,14 +26,15 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   //console.log('Controller is active');
 
   // SCOPE DATA MEMBERS
-  $scope.session = '';
-  $scope.currentPage = '';
+  $scope.session = null;
+  $scope.currentPage = null;
   $scope.userProfile = null;
   $scope.activityList = [];
   $scope.enrollmentList = [];
   $scope.enrolledActivities = [];
   $scope.userList = [];
   $scope.userMod = null;
+  $scope.latestActionList = [];
 
 
   // SCOPE ACTIONS
@@ -73,6 +74,15 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
         break;
       case "/manage/":
         $scope.getUserList();
+        break;
+      case "/activities/":
+        $scope.manageActivities();
+        break;
+      case "/stats/":
+        $scope.dashboard();
+        break;
+      case "/waiver/":
+        $scope.getWaiver();
         break;
       default:
         console.log("Invalid url");
@@ -162,6 +172,64 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
         // do nothing
       });
     });
+  };
+
+  //ACTIVITIES CASE
+  $scope.manageActivities = function(){
+
+  };
+
+  //STATS CASE
+  $scope.dashboard = function(){
+    // get latest actions, pieChart, and lineChart
+    $scope.getLatestActions();
+    $scope.getPieChart();
+    $scope.getLineChart();
+  };
+
+  $scope.getLatestActions = function(){
+    $http.get('/getLatestActions/').success(function(response){
+      $scope.latestActionList = response;
+    });
+  }
+
+  $scope.getPieChart = function(){
+    $http.get('/getPieChart/').success(function(response){
+      var slices = [];
+      response.forEach(function(item){
+        slices.push({label : item.name, value : item.quant});
+      });
+      Morris.Donut(
+        {
+          element : 'pieChart',
+          //data : [{label : "Disc Bro Chill", value : 45}, {label : "CROSSFIT", value : 60}, {label : 'Srs Bizness Softball', value : 12}, {label: 'ZumbaMania', value : 30}]
+          data : slices
+        }
+      );
+  });
+  };
+
+ $scope.getLineChart = function(){
+    $http.get('/getLineChart/').success(function(response){
+      var points = [];
+      response.forEach(function(item){
+        points.push({y : item.year.toString(), a : item.quant.toString()});
+      });
+      // points = [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}]
+      Morris.Line({
+        element : 'lineChart',
+        //data : [{y : '2013', a : '87'},{y : '2014', a : '75'},{y : '2015', a : '102'}],
+        data : points,
+        xkey : 'y',
+        ykeys : ['a'],
+        labels : ['Total Enrolled Employees']
+      });
+    });
+  };
+
+  //WAIVER CASE
+  $scope.getWaiver = function(){
+
   };
 
   // Load resources and templates
