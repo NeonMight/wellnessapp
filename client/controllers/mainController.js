@@ -35,6 +35,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.userList = [];
   $scope.userMod = null;
   $scope.latestActionList = [];
+  $scope.waiver = false;
 
 
   // SCOPE ACTIONS
@@ -59,7 +60,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
 
   $scope.getResources = function(url){
     //depending on page loaded, get the resources for that page
-    console.log("Requesting resources for "+url);
+    //console.log("Requesting resources for "+url);
     switch(url){
       case "/main/":
         break;
@@ -103,7 +104,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
     $http.put('/updateProfile/',$scope.userProfile).success(function(response)
     {
       //do something
-      refresh();
+      $scope.getUserProfile();
       //alert('Your account has been updated successfully');
       $('#submissionComplete').modal();
     });
@@ -112,6 +113,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   // ENROLLMENT CASE
   $scope.getActivityList = function(){
     $http.get('/getActivityListUnenrolled/').success(function(response){
+      $scope.enrollmentList = [];
       $scope.activityList = response;
       for (var i = 0; i < $scope.activityList.length; i++)
       {
@@ -174,6 +176,15 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
     });
   };
 
+  $scope.editUser = function(username){
+    $http.get('/userModifyRequest/'+username).success(function(response){
+      //console.log('Got the results');
+      $scope.userMod = response[0]; //user is in array
+      //console.log($scope.userMod.firstname);
+      document.getElementById('updateButton').disabled = false;
+    });
+  };
+
   //ACTIVITIES CASE
   $scope.manageActivities = function(){
 
@@ -231,6 +242,12 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.getWaiver = function(){
 
   };
+
+  $scope.decline = function(){
+    $http.post('/waiveParticipation/').success(function(response){
+      // do nothing with response and trigger modal
+    });
+  }
 
   // Load resources and templates
   $scope.getSession();

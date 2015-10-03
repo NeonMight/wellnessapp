@@ -238,6 +238,10 @@ app.post('/enrollUser/', function(req, res){
   });
 });
 
+app.post('/waiveParticipation/', function(req, res){
+  var querystring = 'insert into Waiver()';
+});
+
 ////////////////////////////// PUT REQUESTS //////////////////////////////
 
 app.put('/updateProfile/', function(req,res){
