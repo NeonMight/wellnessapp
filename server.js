@@ -239,7 +239,12 @@ app.post('/enrollUser/', function(req, res){
 });
 
 app.post('/waiveParticipation/', function(req, res){
-  var querystring = 'insert into Waiver()';
+  var querystring = 'insert into Waiver(user, waivedate) values("'+req.session.user+'", CURDATE())';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send("ok!");
+    });
+  });
 });
 
 ////////////////////////////// PUT REQUESTS //////////////////////////////

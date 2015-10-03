@@ -246,6 +246,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.decline = function(){
     $http.post('/waiveParticipation/').success(function(response){
       // do nothing with response and trigger modal
+      $('#submissionComplete').modal();
     });
   }
 

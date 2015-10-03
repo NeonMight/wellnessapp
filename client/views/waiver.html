@@ -1,5 +1,25 @@
-<form>
+<div>
 <h2>Decline Participation</h2>
 <p>I hereby decline my participation in the wellness program <input type="checkbox" ng-model='waiver'></p>
 <button class="btn btn-default" ng-click='decline()'>Submit</button>
-</form>
+</div>
+
+<div id="submissionComplete" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enrollment Status</h4>
+      </div>
+      <div class="modal-body">
+        <p>You have been waived from the program successfully.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
