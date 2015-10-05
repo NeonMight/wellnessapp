@@ -85,7 +85,6 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
         $scope.dashboard();
         break;
       case "/waiver/":
-        $scope.getWaiver();
         break;
       default:
         console.log("Invalid url");
@@ -164,13 +163,21 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.viewEnrollmentForUser = function(username){
     $http.get('/viewEnrollmentForUser/'+username).success(function(response){
       // possible need to coerce boolean values to numerical or something
+      $scope.userCreditPercentage = {credit : 0}
       $scope.userModEnrollmentList = response;
       $scope.userModEnrollmentList.forEach(function(member){
-        console.log(member.complete);
+        //console.log(member.complete);
+        //console.log(member.percent);
         member.complete = Boolean(member.complete); //ng-model doesn't like ints for boolean
+        if (member.complete == true) $scope.userCreditPercentage.credit += member.percent;
       });
       $('#userEnrollment').modal();
     });
+  };
+
+  $scope.alterStatus = function(){
+    // on change, add and validate
+    console.log('Status has been altered');
   };
 
   $scope.updateEnrollmentStatus = function(){
@@ -246,10 +253,6 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   };
 
   //WAIVER CASE
-  $scope.getWaiver = function(){
-
-  };
-
   $scope.decline = function(){
     $http.post('/waiveParticipation/').success(function(response){
       // do nothing with response and trigger modal

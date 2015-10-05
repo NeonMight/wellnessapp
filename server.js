@@ -227,6 +227,12 @@ app.get('/getLatestActions/', function(req, res){
 });
 //////////////////////////////POST REQUESTS//////////////////////////////
 
+app.post('/createUserAccount/', function(req,res){
+  var querystring = 'insert into User(username, firstname, lastname, password, email, department, enabled, isadmin) values("'+req.body.username+'","'+req.body.firstname+'","'+req.body.lastname+'","'+req.body.password+'","'+req.body.email+'","'+req.body.department+'",1,0)';
+  console.log(querystring);
+  res.send('ok!');
+});
+
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
   var querystring = 'insert into Enrollment(user, activityid, enrollmentdate, complete) values("'+req.session.user+'", '+req.body.id+', CURDATE(), 0)';
