@@ -36,6 +36,8 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.userMod = null;
   $scope.latestActionList = [];
   $scope.waiver = false;
+  $scope.userModEnrollmentList = [];
+  $scope.userCreditPercentage = {credit: 0}
 
 
   // SCOPE ACTIONS
@@ -161,7 +163,12 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
 
   $scope.viewEnrollmentForUser = function(username){
     $http.get('/viewEnrollmentForUser/'+username).success(function(response){
-      $scope.enrollmentList = response;   // this variable is being reused; change the name to something else
+      // possible need to coerce boolean values to numerical or something
+      $scope.userModEnrollmentList = response;
+      $scope.userModEnrollmentList.forEach(function(member){
+        console.log(member.complete);
+        member.complete = Boolean(member.complete); //ng-model doesn't like ints for boolean
+      });
       $('#userEnrollment').modal();
     });
   };

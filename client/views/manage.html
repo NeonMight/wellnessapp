@@ -1,7 +1,7 @@
 <h2>User Information Management</h2>
   <table class='table'>
     <thead>
-    <th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th><th></th>
+    <th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Department</th><th></th>
     <thead>
     <tr>
     <td><input class='form-control' ng-model='userMod.firstname' placeholder="First Name"/></td>
@@ -11,7 +11,7 @@
     <td><button class='btn btn-info' ng-click='updateUser()' disabled="true" id='updateButton'>Update</button></td>
   </tr>
   <tr ng-repeat='user in userList'>
-    <td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td>
+    <td>{{user.username}}</td><td>{{user.firstname}}</td><td>{{user.lastname}}</td><td>{{user.email}}</td><td>{{user.department}}</td>
     <td><button class='btn btn-default' ng-click='editUser(user.username)'>Edit</button></td>
     <td><td><button class='btn btn-warning' ng-click='viewEnrollmentForUser(user.username)'>View Enrollment</button></td></td>
   </tr>
@@ -50,15 +50,16 @@
         <h4 class="modal-title">Enrollment for user</h4>
       </div>
       <div class="modal-body">
+        <p>Total Credit :<span ng-model='userCreditPercentage'>{{userCreditPercentage.credit}}</span></p>
         <table class="table">
         <thead>
           <th>Activity</th><th>Status</th>
         </thead>
-          <tr ng-repeat='activity in enrollmentList'>
-            <td><small>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</small></td><td><input type="checkbox" ng-model='activity.complete'></td>
+          <tr ng-repeat='activity in userModEnrollmentList'>
+            <td><small>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</small></td><td><input type="checkbox" ng-model="activity.complete"></td>
           </tr>
         </table>
-        <p ng-hide='enrollmentList.length'>No enrolled activities</p>
+        <p ng-hide='userModEnrollmentList.length'>No enrolled activities</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal" ng-click='updateEnrollmentStatus()'>Save</button>
