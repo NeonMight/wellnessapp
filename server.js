@@ -69,6 +69,11 @@ app.get('/logout/', function(req, res){
   res.redirect('/');
 });
 
+app.get('/checkAvailableUsernames/', function(req,res){
+  var querystring = 'select * from User where username="'+req.body.newusername+'"'
+  console.log(querystring);
+});
+
 ////////////////////////////// MAIN TEMPLATES //////////////////////////////
 
 app.get('/enroll/', function(req, res){
@@ -228,7 +233,7 @@ app.get('/getLatestActions/', function(req, res){
 //////////////////////////////POST REQUESTS//////////////////////////////
 
 app.post('/createUserAccount/', function(req,res){
-  var querystring = 'insert into User(username, firstname, lastname, password, email, department, enabled, isadmin) values("'+req.body.username+'","'+req.body.firstname+'","'+req.body.lastname+'","'+req.body.password+'","'+req.body.email+'","'+req.body.department+'",1,0)';
+  var querystring = 'insert into User(username, firstname, lastname, password, email, department, enabled, isadmin) values("'+req.body.username+'","'+req.body.firstname+'","'+req.body.lastname+'","'+sha1(req.body.password)+'","'+req.body.email+'","'+req.body.department+'",1,0)';
   console.log(querystring);
   res.send('ok!');
 });
@@ -279,7 +284,7 @@ app.put('/modifyUserAsAdmin/', function(req, res){
 
 app.put('/updateEnrollmentStatus/', function(req, res){
   //console.log(req.body.user);
-  var querystring = 'update Enrollment set complete='+req.body.complete+' where user="'+req.body.user+'"';
+  var querystring = 'update Enrollment set complete='+req.body.complete+' where user="'+req.body.user+'" and activityid='+req.body.id;
   console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){

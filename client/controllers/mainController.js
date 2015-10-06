@@ -181,7 +181,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   };
 
   $scope.updateEnrollmentStatus = function(){
-    $scope.enrollmentList.forEach(function(activity){
+    $scope.userModEnrollmentList.forEach(function(activity){
       //console.log(activity);
       //console.log(activity.user);
       $http.put('/updateEnrollmentStatus/', activity).success(function(response){

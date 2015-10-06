@@ -67,7 +67,6 @@ body {
 </form>
 <small>Don't have an account? Sign up <a href='' ng-click='triggerModal()'>here</a></small>
 </div>
-</div>
 
 <!-- Modal -->
 <div id="createAccount" class="modal fade bs-modal-sm" role="dialog">
@@ -104,7 +103,7 @@ body {
 
   </div>
 </div>
-
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js'></script>
@@ -113,9 +112,10 @@ var ngapp = angular.module('portal', []);
 
 ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
 {
-  console.log('Controller active');
+  //console.log('Controller active');
   $scope.failure = null;
   $scope.newUser = {username:'', firstname:'', lastname:'', email:'', department:'', password:'', repeatPassword:''};
+  $scope.validFields = false;
 
   // get session to see login attempts
   $scope.getSession = function(){
@@ -127,10 +127,13 @@ ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
 
   $scope.triggerModal = function(){
     $("#createAccount").modal();
+    console.log("Modal");
   }
 
   $scope.validate = function(){
-    console.log('Validation successful');
+    $http.get('/checkAvailableUsernames/').success(function(response){
+      // if response is none, make field green
+    });
   }
 
   $scope.signUp = function(){
