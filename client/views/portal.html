@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="/client/css/dream-bootstrap.css">
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
 <style>
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
 body {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -54,7 +57,7 @@ body {
 <div class="col-xs-4">
 </div>
 <div class='col-xs-4'>
-<div class="alert alert-danger" ng-hide='!failure'>
+<div class="alert alert-danger" ng-show='failure'>
   <strong>Error</strong> Username and password combination incorrect.
 </div>
 <form method='post' action='/login/' class="form-signin">

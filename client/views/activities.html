@@ -2,7 +2,26 @@
   <h2>Activity Management</h2><br>
   <table class="table">
     <thead>
-      <th>Activity Name</th><th>Activity Something</th>
+      <th>Activity Name</th><th>Percent</th><th>Description</th><th>Events required</th><th>Max selection</th><th>Documentation</th><th></th>
     </thead>
+    <tr>
+      <td><input class='form-control' placeholder='Name' ng-model='activityMod.name'></td>
+      <td>
+        <select class="form-control" ng-model='activityMod.percent'>
+          <option>5</option>
+          <option>10</option>
+          <option>20</option>
+        </select>
+      </td>
+      <td><textarea class='form-control' placeholder='Description' ng-model='activityMod.description'></textarea></td>
+      <td><input class='form-control' type='number' min="0" max="10" ng-model='activityMod.eventsrequired'></td>
+      <td><input class='form-control' type="number" min='0' max="4" ng-model='activityMod.maxselection'></td>
+      <td><input class='form-control' placeholder="Documentation" ng-model='activityMod.documentation'></td>
+      <td><button class='btn btn-default' ng-click='addActivity()'>Add</button></td>
+    </tr>
+    <tr ng-repeat='activity in activityManageList'>
+      <td>{{activity.name}}</td><td>{{activity.percent}}</td><td>{{activity.description}}</td><td>{{activity.eventsrequired}}</td>
+      <td>{{activity.maxselection}}</td><td>{{activity.documentation}}</td>
+    </tr>
   </table>
 </div>

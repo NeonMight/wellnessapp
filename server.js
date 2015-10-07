@@ -132,6 +132,16 @@ app.get('/getUserProfile/', function(req,res){
   });
 });
 
+app.get('/getActivityList/', function(req,res){
+  currentDate = new Date();
+  var querystring = 'select * from Activity where enrollmentyear='+currentDate.getFullYear()+' order by percent';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows);
+    });
+  });
+});
+
 app.get('/getActivityListUnenrolled/', function(req, res){
   //console.log('Activity list requested');
   currentDate = new Date(); //only get relevant form data for current year

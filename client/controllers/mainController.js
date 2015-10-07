@@ -37,7 +37,9 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.latestActionList = [];
   $scope.waiver = false;
   $scope.userModEnrollmentList = [];
-  $scope.userCreditPercentage = {credit: 0}
+  $scope.userCreditPercentage = {credit: 0};
+  $scope.activityManageList = [];
+  $scope.activityMod = null;
 
 
   // SCOPE ACTIONS
@@ -201,7 +203,10 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
 
   //ACTIVITIES CASE
   $scope.manageActivities = function(){
-
+    $http.get('/getActivityList/').success(function(response){
+      $scope.activityManageList = response;
+      $scope.activityMod = {};
+    });
   };
 
   //STATS CASE
