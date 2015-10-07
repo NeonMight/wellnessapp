@@ -46,7 +46,7 @@ body {
   border-top-right-radius: 0;
 }
 </style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/client/js/jquery.js"></script>
 <script src='/client/js/bootstrap.js'></script>
 </head>
 <body ng-app='portal' class='ng-cloak'>
@@ -127,7 +127,6 @@ ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
 
   $scope.triggerModal = function(){
     $("#createAccount").modal();
-    console.log("Modal");
   }
 
   $scope.validate = function(){
