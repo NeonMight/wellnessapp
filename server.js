@@ -248,6 +248,16 @@ app.post('/createUserAccount/', function(req,res){
   res.send('ok!');
 });
 
+app.post('/createActivity/', function(req,res){
+  currentDate = new Date();
+  var querystring = 'insert into Activity(name, description, documentation, percent, enrollmentyear, eventsrequired, maxselection, isarchived) values("'+req.body.name+'", "'+req.body.description+'", "'+req.body.documentation+'", '+req.body.percent+', '+currentDate.getFullYear()+', '+req.body.eventsrequired+', '+req.body.maxselection+', 0)';
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send("ok!");
+    });
+  });
+});
+
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
   var querystring = 'insert into Enrollment(user, activityid, enrollmentdate, complete) values("'+req.session.user+'", '+req.body.id+', CURDATE(), 0)';

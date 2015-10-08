@@ -205,7 +205,14 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.manageActivities = function(){
     $http.get('/getActivityList/').success(function(response){
       $scope.activityManageList = response;
-      $scope.activityMod = {};
+      $scope.activityMod = {name:"", description:"", percent:5, eventsrequired:0, maxselection:0, documentation:""};
+    });
+  };
+
+  $scope.addActivity = function(){
+    //console.log($scope.activityMod);
+    $http.post('/createActivity/', $scope.activityMod).success(function(response){
+      $scope.manageActivities();
     });
   };
 
