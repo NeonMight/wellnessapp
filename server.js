@@ -69,9 +69,11 @@ app.get('/logout/', function(req, res){
   res.redirect('/');
 });
 
-app.get('/checkAvailableUsernames/', function(req,res){
-  var querystring = 'select * from User where username="'+req.body.newusername+'"'
+app.post('/checkAvailableUsernames/', function(req, res){
+  //console.log(req.body);
+  var querystring = 'select * from User where username="'+req.body.username+'"';
   console.log(querystring);
+  res.send('ok!');
 });
 
 ////////////////////////////// MAIN TEMPLATES //////////////////////////////
