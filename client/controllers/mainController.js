@@ -201,6 +201,12 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
     });
   };
 
+  $scope.switchUser = function(username){
+    $http.put('/alterSessionUser/', {user:username}).success(function(response){
+      $scope.getSession();
+    });
+  }
+
   //ACTIVITIES CASE
   $scope.manageActivities = function(){
     $http.get('/getActivityList/').success(function(response){

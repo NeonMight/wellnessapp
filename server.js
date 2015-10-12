@@ -323,6 +323,12 @@ app.put('/updateEnrollmentStatus/', function(req, res){
   });
 });
 
+app.put('/alterSessionUser/', function(req, res){
+  req.session.user = req.body.user;
+  //console.log("Logging in as "+req.body.user+"...");
+  res.send('ok!');
+});
+
 ////////////////////////////// SET UP LISTENER //////////////////////////////
 var globalPort = 3000;
 app.listen(globalPort, function(){
