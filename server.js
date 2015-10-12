@@ -71,9 +71,14 @@ app.get('/logout/', function(req, res){
 
 app.post('/checkAvailableUsernames/', function(req, res){
   //console.log(req.body);
-  var querystring = 'select * from User where username="'+req.body.username+'"';
-  console.log(querystring);
-  res.send('ok!');
+  var querystring = 'select * from User where username="'+req.body.username+'" limit 1';
+  //console.log(querystring);
+  //res.send('ok!');
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send(rows[0]);
+    });
+  });
 });
 
 ////////////////////////////// MAIN TEMPLATES //////////////////////////////
@@ -246,8 +251,11 @@ app.get('/getLatestActions/', function(req, res){
 
 app.post('/createUserAccount/', function(req,res){
   var querystring = 'insert into User(username, firstname, lastname, password, email, department, enabled, isadmin) values("'+req.body.username+'","'+req.body.firstname+'","'+req.body.lastname+'","'+sha1(req.body.password)+'","'+req.body.email+'","'+req.body.department+'",1,0)';
-  console.log(querystring);
-  res.send('ok!');
+  pool.getConnection(function(err,connection){
+    connection.query(querystring, function(err,rows){
+      res.send("ok!");
+    });
+  });
 });
 
 app.post('/createActivity/', function(req,res){

@@ -119,8 +119,7 @@ ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
 {
   //console.log('Controller active');
   $scope.failure = null;
-  $scope.newUser = {username:'', firstname:'', lastname:'', email:'', department:'', password:'', repeatPassword:''};
-  $scope.validFields = false;
+  $scope.newUser = {username:'', firstname:'', lastname:'', email:'', department:'', password:'', repeatPassword:'', passwordsMatch: false, validUser:false};
 
   // get session to see login attempts
   $scope.getSession = function(){
@@ -138,7 +137,16 @@ ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
 
   $scope.validate = function(){
     $http.post('/checkAvailableUsernames/',$scope.newUser).success(function(response){
-      if(response=="ok!") document.getElementById("newusername").setAttribute("class", "form-group has-error ");
+      if(response=="")
+      {
+        document.getElementById("newusername").setAttribute("class", "form-group has-success ");
+        $scope.newUser.validUser = true;
+      }
+      else
+      {
+        document.getElementById("newusername").setAttribute("class", "form-group has-error ");
+        $scope.newUser.validUser = false;
+      }
     });
   };
 
@@ -152,6 +160,21 @@ ngapp.controller('portalController', ['$scope', '$http', function($scope, $http)
   };
 
   $scope.getSession();
+
+  $scope.$watch('newUser', function(){
+    //console.log($scope.newUser.password +" = "+ $scope.newUser.repeatPassword + "?");
+    if ($scope.newUser.password == $scope.newUser.repeatPassword && $scope.newUser.password != "")
+    {
+      $scope.newUser.passwordsMatch = true;
+    }
+    else $scope.newUser.passwordsMatch = false;
+
+    if ($scope.newUser.passwordsMatch == true && $scope.newUser.validUser == true)
+    {
+      document.getElementById('submitButton').disabled = false;
+    }
+    else document.getElementById('submitButton').disabled = true;
+  }, true);
 }]);
 
 </script>
