@@ -58,7 +58,7 @@
           <th>Activity</th><th>Status</th>
         </thead>
           <tr ng-repeat='activity in userModEnrollmentList'>
-            <td><small>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</small></td><td><input type="checkbox" ng-model="activity.complete" ng-change='alterStatus()'></td>
+            <td><small>{{activity.name}} - Enrolled {{activity.enrollmentdate}}</small></td><td><input type="checkbox" ng-model="activity.complete" ng-change='alterStatus(activity.percent)'></td>
           </tr>
         </table>
         <p ng-hide='userModEnrollmentList.length'>No enrolled activities</p>
