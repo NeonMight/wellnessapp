@@ -1,9 +1,9 @@
 <h2>My Enrolled Activities</h2>
 <table class='table'>
 <thead>
-  <th>Activity Name</th><th>Description</th><th>Date Enrolled</th><th>Percentage</th><th>Complete</th>
+  <th>Activity Name</th><th>Description</th><th>Date Enrolled</th><th>Percentage</th><th>Events Complete</th>
 </thead>
 <tr ng-repeat='activity in enrolledActivities'>
-  <td>{{ activity.name }}</td><td>{{ activity.description }}</td><td>{{ activity.enrollmentdate }}</td><td>{{ activity.percent }}</td><td><span ng-if='activity.complete==true'>&#10003;</span></td>
+  <td>{{ activity.name }}</td><td>{{ activity.description }}</td><td>{{ activity.enrollmentdate }}</td><td>{{ activity.percent }}</td><td>Events Complete will go here</td>
 </tr>
 </table>

@@ -2,7 +2,7 @@
   <h2>Activity Management</h2><br>
   <table class="table">
     <thead>
-      <th>Activity Name</th><th>Percent</th><th>Description</th><th>Events required</th><th>Max selection</th><th>Documentation</th><th></th>
+      <th>Activity Name</th><th>Percent</th><th>Description</th><th>Events required</th><th>Max selection</th><th>Documentation</th><th></th><th></th>
     </thead>
     <tr>
       <td><input class='form-control' placeholder='Name' ng-model='activityMod.name'></td>
@@ -21,7 +21,42 @@
     </tr>
     <tr ng-repeat='activity in activityManageList'>
       <td>{{activity.name}}</td><td>{{activity.percent}}</td><td>{{activity.description}}</td><td>{{activity.eventsrequired}}</td>
-      <td>{{activity.maxselection}}</td><td>{{activity.documentation}}</td>
+      <td>{{activity.maxselection}}</td><td>{{activity.documentation}}</td><td><button class='btn btn-default' ng-click='getEventList(activity.id)'>Edit Events</button></td>
     </tr>
   </table>
+</div>
+
+<!-- Modal -->
+<div id="editEvents" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Events</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <th>Event Name</th><th>Event Start Date</th><th>Event End Date</th><th> </th>
+          </thead>
+          <tr>
+            <td><input ng-model="eventMod.name" class="form-control" placeholder="Event Name"></td>
+            <td><input ng-model="eventMod.startdate" type="date" class="form-control"></td>
+            <td><input ng-model="eventMod.enddate" type="date" class="form-control"></td>
+            <td><button class='btn btn-default' ng-click="addEvent()">Add</button></td>
+          </tr>
+          <tr ng-repeat='event in eventModList'>
+            <td>{{event.name}}</td><td>{{event.startdate}}</td><td>{{event.enddate}}</td>
+          </tr>
+        </table>
+        <p ng-hide='eventModList.length'>No events to show</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>

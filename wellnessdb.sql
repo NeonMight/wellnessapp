@@ -28,13 +28,12 @@ primary key(id)
 );
 
 create table Event(
-eventname varchar(100) not null,
+id int not null auto_increment,
+name varchar(100) not null,
 activityid int not null,
-description varchar(100) not null,
 startdate date not null,
 enddate date not null,
-isarchived boolean not null,
-primary key(eventname),
+primary key(id),
 foreign key(activityid) references Activity(id)
 );
 -- one to many relation between activity and event; activity has 0 or more events. Event must be matched with an activity
@@ -43,10 +42,19 @@ create table Enrollment(
 user varchar(100) not null,
 activityid int not null,
 enrollmentdate date not null,
-complete boolean not null,
+-- complete boolean not null,
 primary key(user, activityid),
 foreign key(user) references User(username),
 foreign key(activityid) references Activity(id)
+);
+
+create table EventCredit(
+user varchar(100) not null,
+eventid int not null,
+complete boolean not null,
+primary key(user, eventid),
+foreign key(user) references User(username),
+foreign key(eventid) references Event(id)
 );
 
 create table Waiver(

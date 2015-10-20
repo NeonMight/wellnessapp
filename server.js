@@ -268,9 +268,15 @@ app.post('/createActivity/', function(req,res){
   });
 });
 
+app.post('/createEvent/', function(req, res){
+  var querystring = "insert into Event(name, activityid, startdate, enddate) values('"+req.body.name+"', "+req.body.id+", "+req.body.startdate+", "+req.body.enddate+")";
+  console.log(querystring);
+  res.send("ok!");
+});
+
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
-  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate, complete) values("'+req.session.user+'", '+req.body.id+', CURDATE(), 0)';
+  var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", '+req.body.id+', CURDATE())';
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
@@ -315,7 +321,7 @@ app.put('/modifyUserAsAdmin/', function(req, res){
 app.put('/updateEnrollmentStatus/', function(req, res){
   //console.log(req.body.user);
   var querystring = 'update Enrollment set complete='+req.body.complete+' where user="'+req.body.user+'" and activityid='+req.body.id;
-  console.log(querystring);
+  //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send('ok!');
@@ -327,6 +333,17 @@ app.put('/alterSessionUser/', function(req, res){
   req.session.user = req.body.user;
   //console.log("Logging in as "+req.body.user+"...");
   res.send('ok!');
+});
+
+app.put('/getEventsToAlter/', function(req, res){
+  querystring = "select * from Event where activityid="+req.body.id+"";
+  //console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      //console.log(rows);
+      res.send(rows);
+    });
+  });
 });
 
 ////////////////////////////// SET UP LISTENER //////////////////////////////

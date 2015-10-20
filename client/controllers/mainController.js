@@ -40,6 +40,8 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.userCreditPercentage = {credit: 0};
   $scope.activityManageList = [];
   $scope.activityMod = null;
+  $scope.eventModList = [];
+  $scope.eventMod = {name: "", startdate : null, enddate : null};
 
 
   // SCOPE ACTIONS
@@ -180,8 +182,8 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.alterStatus = function(value){
     // on change, add and validate
     //console.log('Status has been altered');
-    $scope.userCreditPercentage.credit += value;
-    if ($scope.userCreditPercentage.credit >= 20) $scope.userCreditPercentage.credit = 20; //if it goes over, cap it at 20
+    //$scope.userCreditPercentage.credit += value;
+    //if ($scope.userCreditPercentage.credit >= 20) $scope.userCreditPercentage.credit = 20; //if it goes over, cap it at 20
   };
 
   $scope.updateEnrollmentStatus = function(){
@@ -220,9 +222,27 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.addActivity = function(){
     //console.log($scope.activityMod);
     $http.post('/createActivity/', $scope.activityMod).success(function(response){
-      $scope.manageActivities();
+      //
     });
   };
+
+  $scope.getEventList = function(id){
+    $http.put('/getEventsToAlter/',{id:id}).success(function(response){
+      $scope.eventModList = response;
+      $scope.eventModList.forEach(function(member){
+        member.activityid = id;
+        //console.log(member);
+      });
+      $("#editEvents").modal();
+    });
+  };
+
+  $scope.addEvent = function(){
+    $http.post("/createEvent/", $scope.eventMod).success(function(response){
+      $scope.eventMod = {name: "", startdate : null, enddate : null};
+      $scope.getEventList();
+    });
+  }
 
   //STATS CASE
   $scope.dashboard = function(){

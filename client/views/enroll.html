@@ -28,9 +28,9 @@
       </div>
       <div class="modal-body">
         <div ng-repeat='event in eventList'>
-          <p>{{event.eventname}} : {{event.startdate}} - {{event.enddate}}</p>
+          <p>{{event.name}} : {{event.startdate}} - {{event.enddate}}</p>
         </div>
-        <div ng-hide='selectedActivity.eventList.length'>No events</div>
+        <div ng-hide='eventList.length'>No events</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
