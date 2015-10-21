@@ -227,6 +227,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   };
 
   $scope.getEventList = function(id){
+    $scope.eventMod.activityid = id;
     $http.put('/getEventsToAlter/',{id:id}).success(function(response){
       $scope.eventModList = response;
       $scope.eventModList.forEach(function(member){
@@ -239,8 +240,10 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
 
   $scope.addEvent = function(){
     $http.post("/createEvent/", $scope.eventMod).success(function(response){
-      $scope.eventMod = {name: "", startdate : null, enddate : null};
-      $scope.getEventList();
+      $scope.eventMod.name = "";
+      $scope.eventMod.startdate = null;
+      $scope.eventMod.enddate = null;
+      $scope.getEventList($scope.eventMod.activityid);
     });
   }
 

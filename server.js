@@ -269,7 +269,9 @@ app.post('/createActivity/', function(req,res){
 });
 
 app.post('/createEvent/', function(req, res){
-  var querystring = "insert into Event(name, activityid, startdate, enddate) values('"+req.body.name+"', "+req.body.id+", "+req.body.startdate+", "+req.body.enddate+")";
+  var startdate = req.body.startdate.substring(0,10);
+  var enddate = req.body.enddate.substring(0,10);
+  var querystring = "insert into Event(name, activityid, startdate, enddate) values('"+req.body.name+"', "+req.body.activityid+", "+req.body.startdate+", "+req.body.enddate+")";
   console.log(querystring);
   res.send("ok!");
 });
