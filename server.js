@@ -269,11 +269,15 @@ app.post('/createActivity/', function(req,res){
 });
 
 app.post('/createEvent/', function(req, res){
-  var startdate = req.body.startdate.substring(0,10);
-  var enddate = req.body.enddate.substring(0,10);
-  var querystring = "insert into Event(name, activityid, startdate, enddate) values('"+req.body.name+"', "+req.body.activityid+", "+req.body.startdate+", "+req.body.enddate+")";
-  console.log(querystring);
-  res.send("ok!");
+  var startdate = new Date(req.body.startdate).toISOString().substring(0,10);
+  var enddate = req.body.enddate.substring(0,10); //shorthand conversion
+  var querystring = "insert into Event(name, activityid, startdate, enddate) values('"+req.body.name+"', "+req.body.activityid+", "+startdate+", "+enddate+")";
+  //console.log(querystring);
+  pool.getConnection(function(err, connection){
+    connection.query(querystring, function(err, rows){
+      res.send("ok!");
+    });
+  });
 });
 
 app.post('/enrollUser/', function(req, res){
