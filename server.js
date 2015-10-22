@@ -197,7 +197,8 @@ app.get('/getUserList/', function(req, res){
 
 // also for manage page
 app.get('/viewEnrollmentForUser/:username', function(req, res){
-  var querystring = 'select * from Activity a inner join Enrollment e where a.id=e.activityid and e.user="'+req.params.username+'"';
+  //var querystring = 'select * from Activity a inner join Enrollment e where a.id=e.activityid and e.user="'+req.params.username+'"';
+  var querystring = "select * from EventCredit c inner join Event e where c.eventid=e.id and c.user='"+req.params.username+"'"; // get results from Eventcredit table
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
@@ -280,6 +281,7 @@ app.post('/createEvent/', function(req, res){
   });
 });
 
+// should AUTOENROLL happen here?
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
   var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", '+req.body.id+', CURDATE())';
@@ -326,8 +328,8 @@ app.put('/modifyUserAsAdmin/', function(req, res){
 
 app.put('/updateEnrollmentStatus/', function(req, res){
   //console.log(req.body.user);
-  var querystring = 'update Enrollment set complete='+req.body.complete+' where user="'+req.body.user+'" and activityid='+req.body.id;
-  //console.log(querystring);
+  var querystring = 'update EventCredit set complete='+req.body.complete+' where user="'+req.body.user+'" and eventid='+req.body.id;
+  console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send('ok!');
@@ -353,7 +355,7 @@ app.put('/getEventsToAlter/', function(req, res){
 });
 
 ////////////////////////////// SET UP LISTENER //////////////////////////////
-var globalPort = 3000;
+var globalPort = 3001;
 app.listen(globalPort, function(){
   console.log('Server listening on port '+globalPort);
 });

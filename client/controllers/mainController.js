@@ -179,7 +179,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
     });
   };
 
-  $scope.alterStatus = function(value){
+  $scope.alterStatus = function(){
     // on change, add and validate
     //console.log('Status has been altered');
     //$scope.userCreditPercentage.credit += value;
