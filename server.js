@@ -281,14 +281,24 @@ app.post('/createEvent/', function(req, res){
   });
 });
 
-// should AUTOENROLL happen here?
+// EventCredit autoenroll happening here as well as Activity enrollment
 app.post('/enrollUser/', function(req, res){
   //timestamp = new Date(dateString);
   var querystring = 'insert into Enrollment(user, activityid, enrollmentdate) values("'+req.session.user+'", '+req.body.id+', CURDATE())';
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
-      res.send("ok!");
+      var query2 = "select * from Event where activityid="+req.body.id+"";
+      connection.query(query2, function(err,rows){
+        rows.forEach(function(item){
+          //console.log("Associated Event id: "+item.id);
+          var query3 = "insert into EventCredit(user, eventid, complete) values('"+req.session.user+"', "+item.id+", 0)";
+          //console.log("Insert query: "+query3);
+          connection.query(query3, function(err,rows){});
+        });
+        res.send("ok!");
+      });
+      //res.send("ok!");
     });
   });
 });
