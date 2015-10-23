@@ -339,7 +339,7 @@ app.put('/modifyUserAsAdmin/', function(req, res){
 app.put('/updateEnrollmentStatus/', function(req, res){
   //console.log(req.body.user);
   var querystring = 'update EventCredit set complete='+req.body.complete+' where user="'+req.body.user+'" and eventid='+req.body.id;
-  console.log(querystring);
+  //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send('ok!');
