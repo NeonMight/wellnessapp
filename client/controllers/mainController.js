@@ -211,6 +211,14 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
     });
   }
 
+  $scope.updateUser = function(){
+    $http.put('/modifyUserAsAdmin/', $scope.userMod).success(function(response){
+      $scope.userMod = null;
+      document.getElementById('updateButton').disabled = true;
+      $scope.getUserList();
+    });
+  }
+
   //ACTIVITIES CASE
   $scope.manageActivities = function(){
     $http.get('/getActivityList/').success(function(response){
