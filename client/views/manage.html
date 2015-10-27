@@ -58,7 +58,7 @@
           <th>Activity</th><th>Status</th>
         </thead>
           <tr ng-repeat='event in userModEnrollmentList'>
-            <td><small>{{event.name}}</small></td><td><input type="checkbox" ng-model="event.complete" ng-change='alterStatus()'></td>
+            <td><small>{{event.acname}}: {{event.name}}</small></td><td><input type="checkbox" ng-model="event.complete" ng-change='alterStatus()'></td>
           </tr>
         </table>
         <p ng-hide='userModEnrollmentList.length'>No enrolled activities</p>

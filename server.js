@@ -198,7 +198,7 @@ app.get('/getUserList/', function(req, res){
 // also for manage page
 app.get('/viewEnrollmentForUser/:username', function(req, res){
   //var querystring = 'select * from Activity a inner join Enrollment e where a.id=e.activityid and e.user="'+req.params.username+'"';
-  var querystring = "select * from EventCredit c inner join Event e where c.eventid=e.id and c.user='"+req.params.username+"'"; // get results from Eventcredit table
+  var querystring = "select a.name as acname, e.* from Activity a, EventCredit c, Event e where c.eventid=e.id and c.user='"+req.params.username+"'"; // get results from Eventcredit table
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){

@@ -65,6 +65,12 @@ foreign key(user) references User(username)
 );
 
 
+-- TO DO QUERIES
+-- select all activities from enrollment table and # of complete events from event credit table where username='test'
+-- select all events and associated activity name for event from event credit table where username='test'
+
+-- select a.name, en.user, count(ec.complete) as num from Activity a, Enrollment en, Event ev, EventCredit ec where a.id=en.activityid and a.id=ev.activityid and ec.eventid=ev.id and en.user="test" and ec.complete=1 group by a.name;
+
 -- TEST DATA
 
 insert into User(department, email, enabled, firstname, lastname, password, username)
