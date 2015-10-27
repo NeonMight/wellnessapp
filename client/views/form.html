@@ -1,10 +1,10 @@
 <h2>My Enrolled Activities</h2><br>
 <table class='table' ng-show="enrolledActivities.length">
 <thead>
-  <th>Activity Name</th><th>Description</th><th>Date Enrolled</th><th>Percentage</th><th>Events Complete</th>
+  <th>Activity Name</th><th>Description</th><th>Year Enrolled</th><th>Percentage</th><th>Events Complete</th>
 </thead>
 <tr ng-repeat='activity in enrolledActivities'>
-  <td>{{ activity.name }}</td><td>{{ activity.description }}</td><td>{{ activity.enrollmentdate }}</td><td>{{ activity.percent }}</td><td>Events Complete will go here</td>
+  <td>{{ activity.name }}</td><td>{{ activity.description }}</td><td>{{ activity.enrollmentyear }}</td><td>{{ activity.percent }}</td><td>{{activity.num}} / {{activity.eventsrequired}}</td>
 </tr>
 </table>
 <p ng-hide='enrolledActivities.length'>You are not enrolled in any activities</p>
