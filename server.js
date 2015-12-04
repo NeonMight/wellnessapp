@@ -164,7 +164,7 @@ app.get('/getActivityListUnenrolled/', function(req, res){
   });
 });
 
-app.get('/getEnrolledActivities/', function(req,res){
+app.get('/getEnrolledActivities/', function(req,res){  //HAS BUGS; not returning enough
   //var querystring = 'select * from Activity inner join Enrollment where Activity.id=Enrollment.activityid and user="'+req.session.user+'";';
   var querystring = "select a.*, en.user, count(ec.complete) as num from Activity a, Enrollment en, Event ev, EventCredit ec where a.id=en.activityid and a.id=ev.activityid and ec.eventid=ev.id and en.user='"+req.session.user+"' and ec.complete=1 group by a.name"
   //console.log(querystring);
@@ -199,7 +199,7 @@ app.get('/getUserList/', function(req, res){
 // also for manage page
 app.get('/viewEnrollmentForUser/:username', function(req, res){
   //var querystring = 'select * from Activity a inner join Enrollment e where a.id=e.activityid and e.user="'+req.params.username+'"';
-  var querystring = "select a.name as acname, e.*, c.complete from Activity a, EventCredit c, Event e where c.eventid=e.id and c.user='"+req.params.username+"'"; // get results from Eventcredit table
+  var querystring = "select a.name as acname, e.*, c.complete from Activity a, EventCredit c, Event e where a.id=e.activityid and c.eventid=e.id and c.user='"+req.params.username+"'"; // get results from Eventcredit table
   //console.log(querystring);
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
