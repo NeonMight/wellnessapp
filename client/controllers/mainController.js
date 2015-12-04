@@ -42,6 +42,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.activityMod = null;
   $scope.eventModList = [];
   $scope.eventMod = {name: "", startdate : null, enddate : null};
+  $scope.eventUser = null;
 
 
   // SCOPE ACTIONS
@@ -165,6 +166,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   };
 
   $scope.viewEnrollmentForUser = function(username){
+    $scope.eventUser = username;
     $http.get('/viewEnrollmentForUser/'+username).success(function(response){
       // possible need to coerce boolean values to numerical or something
       $scope.userCreditPercentage = {credit : 0}
@@ -189,11 +191,14 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
   $scope.updateEnrollmentStatus = function(){
     $scope.userModEnrollmentList.forEach(function(activity){
       //console.log(activity);
+      activity.user = $scope.eventUser;
       //console.log(activity.user);
       $http.put('/updateEnrollmentStatus/', activity).success(function(response){
         // do nothing
       });
     });
+    $scope.eventUser = null;
+    $('#userEnrollment').modal('hide');
   };
 
   $scope.editUser = function(username){

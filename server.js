@@ -164,9 +164,9 @@ app.get('/getActivityListUnenrolled/', function(req, res){
   });
 });
 
-app.get('/getEnrolledActivities/', function(req,res){  //HAS BUGS; not returning enough
+app.get('/getEnrolledActivities/', function(req,res){
   //var querystring = 'select * from Activity inner join Enrollment where Activity.id=Enrollment.activityid and user="'+req.session.user+'";';
-  var querystring = "select a.*, en.user, count(ec.complete) as num from Activity a, Enrollment en, Event ev, EventCredit ec where a.id=en.activityid and a.id=ev.activityid and ec.eventid=ev.id and en.user='"+req.session.user+"' and ec.complete=1 group by a.name"
+  var querystring = "select a.*, en.user, count(case when ec.complete=1 then 1 end) as num from Activity a, Enrollment en, Event ev, EventCredit ec where a.id=en.activityid and a.id=ev.activityid and ec.eventid=ev.id and en.user='"+req.session.user+"' group by a.name"
   //console.log(querystring);
   pool.getConnection(function(err,connection){
     connection.query(querystring, function(err, rows){
