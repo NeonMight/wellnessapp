@@ -236,6 +236,7 @@ ngapp.controller('mainController', ['$scope', '$http', '$sce', '$compile', funct
     //console.log($scope.activityMod);
     $http.post('/createActivity/', $scope.activityMod).success(function(response){
       //
+      $scope.manageActivities();
     });
   };
 
