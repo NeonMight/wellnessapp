@@ -242,7 +242,7 @@ app.get('/getPieChart/', function(req, res){
 
 // also for stats page
 app.get('/getLatestActions/', function(req, res){
-  var querystring = 'select * from enrollment order by enrollmentdate desc limit 10';
+  var querystring = 'select * from Enrollment order by enrollmentdate desc limit 10';
   pool.getConnection(function(err, connection){
     connection.query(querystring, function(err, rows){
       res.send(rows);
